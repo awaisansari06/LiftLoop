@@ -1,0 +1,1217 @@
+[
+  {
+    "file": "src/app/admin/page.tsx",
+    "lines": 6,
+    "sha256": "b81bb6477c5f9b4014a23ff18ac57916db00be4e569cd60ed9b77fb4cd3651fe",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/api/payments/checkout/route.ts",
+    "lines": 39,
+    "sha256": "e2263b9a31953a53f3a8867bdd457b07753aaae524a011d07c55e3f09a27b6b7",
+    "parseErrors": [],
+    "tables": [
+      "rides"
+    ],
+    "rpc": [
+      "fulfill_razorpay_test_booking"
+    ]
+  },
+  {
+    "file": "src/app/api/payments/confirm/route.ts",
+    "lines": 12,
+    "sha256": "64a160eb2fdb8f977a15d291b712f5a56f1ecfbc15deb61da92614ebc5eccbf2",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/api/payments/razorpay/verify/route.ts",
+    "lines": 12,
+    "sha256": "6f2efb3769308cee12b5ce2120877f6c492284a603a104a2eb1ad75086094e6b",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/api/payments/razorpay/webhook/route.ts",
+    "lines": 20,
+    "sha256": "d90bcb423dd0f618244542ba80b13b9e8d245a655ba016e74efb13e617cfec5f",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/api/payments/simulated/cancel/route.ts",
+    "lines": 12,
+    "sha256": "934dfe468f94267d437134e630b9df21380b60b9d05d2df949cfaf20ddfc83d0",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": [
+      "cancel_simulated_booking"
+    ]
+  },
+  {
+    "file": "src/app/api/payments/simulated/route.ts",
+    "lines": 12,
+    "sha256": "abe6604460804db79c08d6bcae0007339798286d4af3a280eceb18ee45a79f0d",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": [
+      "create_simulated_booking"
+    ]
+  },
+  {
+    "file": "src/app/api/payments/webhook/route.ts",
+    "lines": 12,
+    "sha256": "621f15b3e0934470c6615b7f24d1a4a8953a4b4a552364021905c91533d9b1f2",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/api/routes/ors/geocode/route.ts",
+    "lines": 23,
+    "sha256": "86fdfa64ab1771f98a161d05110a6fa741daf6dc56686a717e4a4064b6c5bddd",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/api/routes/ors/route.ts",
+    "lines": 30,
+    "sha256": "a815ebb835f6a513a9e20f0f63675ebaaffedb3f7de4e1efe7d4076bb47b2a1b",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/auth/callback/page.tsx",
+    "lines": 6,
+    "sha256": "e20c52f0528493bc49c59387dd8c74f5b907ab6b9de37b33ea9493c115b4b0a5",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/bookings/page.tsx",
+    "lines": 6,
+    "sha256": "f5c66cc53aefbe73dc498689a818c0bb227b7b231ba6381a9b17586b14d3efb1",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/chat/[rideId]/page.tsx",
+    "lines": 6,
+    "sha256": "5e8d8f289b45a7c19adae09f2d378b11c7ad1e741d395e9e95576432214c1e62",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/driver/page.tsx",
+    "lines": 3,
+    "sha256": "61c6aaf3250caf062fe464e6cce2db0722c4e7bc8a8511395f16be4c44f35536",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/layout.tsx",
+    "lines": 6,
+    "sha256": "b806df846c0dafbb8b5a583202fb1888a88f1f4834e16db81a45c2869b6f0513",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/login/page.tsx",
+    "lines": 6,
+    "sha256": "0bd99ea6dec1d22c59e42b612cf14fb33b960b36e9500057bfecd68cc844b301",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/not-found.tsx",
+    "lines": 2,
+    "sha256": "5a17cfff8c430cc7f83aac26a4c76574a9079512977bc0a880d35e9e846ee744",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/page.tsx",
+    "lines": 6,
+    "sha256": "356989f3416bb184f7b7b131904cdf8f8b41a0213e3bf14acdcd68f38d83bb37",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/payments/result/page.tsx",
+    "lines": 20,
+    "sha256": "c4a4a03619735177457efa62e92cbf80fd4d522455f3c16771bd3cdababd5073",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/payments/simulate/page.tsx",
+    "lines": 14,
+    "sha256": "2e9707a50e8f92527ee3ffb938290f46dcd23a49538c0709d6f7b2a07b1d45c0",
+    "parseErrors": [],
+    "tables": [
+      "rides"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/app/pending-admin/page.tsx",
+    "lines": 6,
+    "sha256": "dbb1de3b97f6d914dafd7a4aea41068a98697614a0bf0f7dcfd28208eb512854",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/portal/page.tsx",
+    "lines": 6,
+    "sha256": "33be4750edb3ad908b09833229bf1441ac9edecbcfc44cf2505ad7c37de7df8f",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/privacy/page.tsx",
+    "lines": 6,
+    "sha256": "4e3ad83cda5f0aacac63fb53f437aeb0fe1df099d26753f047f686723a5358b1",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/profile/page.tsx",
+    "lines": 6,
+    "sha256": "b47ea30d7e0a32ac3f98612abd6af245d35761b0890d870cb045df02eaef5fb1",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/providers.tsx",
+    "lines": 4,
+    "sha256": "73d6ace7fa272a796a099b0fa81f82c1b63275fde5e8838ffb3031ee740c31a0",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/rides/create/page.tsx",
+    "lines": 6,
+    "sha256": "591ea6560f118a04ebb728ad4a858eacd9ac948bfdf15b238f41f704243736b5",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/rides/page.tsx",
+    "lines": 6,
+    "sha256": "027ff9521603911c9919cd9096f2f1a4ca4cee3761345a0eb42d44af715b45ac",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/rides/search/page.tsx",
+    "lines": 6,
+    "sha256": "027ff9521603911c9919cd9096f2f1a4ca4cee3761345a0eb42d44af715b45ac",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/rides/[id]/book/page.tsx",
+    "lines": 6,
+    "sha256": "a1f229fca4274546f8159b9ab7e5ee51e93227520df54d886fce3f6ba2152132",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/rides/[id]/page.tsx",
+    "lines": 6,
+    "sha256": "a1f229fca4274546f8159b9ab7e5ee51e93227520df54d886fce3f6ba2152132",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/service/page.tsx",
+    "lines": 6,
+    "sha256": "026a01cf6d729d8d1ab40463efebfce3f307a15bc94f962bc287724face7aba1",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/student/page.tsx",
+    "lines": 3,
+    "sha256": "f9778d71fe2b916521e2e4f4ac8a8abae856704962339c250e5c8118184daf4c",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/terms/page.tsx",
+    "lines": 6,
+    "sha256": "4b54736c255de3f7ddc5991c2f0b03a0488732b61ac9fb3659aa7b8ba79a5e5e",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/tracking/[rideId]/page.tsx",
+    "lines": 6,
+    "sha256": "eef99b1a5b136e6956713327768613134155047928ca8d7073f4fe4392e38b66",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/unified/page.tsx",
+    "lines": 3,
+    "sha256": "f9778d71fe2b916521e2e4f4ac8a8abae856704962339c250e5c8118184daf4c",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/user/page.tsx",
+    "lines": 6,
+    "sha256": "9a87cd7e613bd0115e8762dfa97c1cf8f861bbae2330f7b2472485c6b220a06f",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/app/verification/page.tsx",
+    "lines": 6,
+    "sha256": "1347fc8f2bfba504231ea033962cf592f32cea403699cf27c340100346e1f205",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/AppShell.tsx",
+    "lines": 63,
+    "sha256": "6925900d1a0e713add77df289b8d1a7148b8dacba4d6fbb4242721bbdad8f06b",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/auth/AuthCallback.tsx",
+    "lines": 114,
+    "sha256": "a624cf0ef8d515843c554bfeb170de986ff094394003273cb4445e4a742105cc",
+    "parseErrors": [],
+    "tables": [
+      "users",
+      "users",
+      "users"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/ErrorBoundary.tsx",
+    "lines": 60,
+    "sha256": "85a10849157b67774787a847ed94f7d7d392c733f8bd7dc35373d02a98c20133",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/GlobalUI.tsx",
+    "lines": 316,
+    "sha256": "3e7eff44ded7282e7189d4ae2ddc2daf37d97985f458974f2fd6bb907c380d33",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/Header.tsx",
+    "lines": 245,
+    "sha256": "3731fb01c5bad07149b1c418e93d98c302a35d15fef59d503b0f59853351d403",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/index.tsx",
+    "lines": 405,
+    "sha256": "60e2ad9b8288c05a03bc253463841badd03dc9891d444b32183ed7a9b03c16f4",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/Interactive3D.tsx",
+    "lines": 391,
+    "sha256": "7828a8fdc30e306ec80b6073106090dcdf6b65e57f57fc89cd7696251428d0d2",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/LegalPage.tsx",
+    "lines": 51,
+    "sha256": "4234c7e7ce412c44b193543b248f2e6a1f3f3b7587fdd1c1370279c19f91cf1d",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/LiveAnnouncements.tsx",
+    "lines": 56,
+    "sha256": "5437670fa31f88f2e770a996661850c8597f5291098c2019e4ef49311d8775cf",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/Logo.tsx",
+    "lines": 31,
+    "sha256": "202df1a839e88994d83d9e23027c5bd500c002958b1e147a61cb91cbda98462d",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/common/SOSModal.tsx",
+    "lines": 136,
+    "sha256": "04451642899be8dd6659bb262ab4f1b00879f9a5a2bebc925fe4a48926741e99",
+    "parseErrors": [],
+    "tables": [
+      "sos_alerts"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/components/landing/IntroFilm.tsx",
+    "lines": 35,
+    "sha256": "14f9f4750b6c4c5c107953acd57a108e22b9a4a5ecb9611424c57c08d27a68e6",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/landing/LandingHeader.tsx",
+    "lines": 118,
+    "sha256": "a347d5400590c92b02607ec11dec52e284e7347417bbf01f8f6a8adf10540fd3",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/landing/LiveMap.tsx",
+    "lines": 130,
+    "sha256": "012d4e6b4127946da6a0522a5c91b8f6d6e8c3e54a26cb53eefee7b4f7d6b2ac",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/maps/index.ts",
+    "lines": 5,
+    "sha256": "c36abab9cf96ae7198c4bb7988c25c7f2ed5d459f02dc1506d2fb92a8e0a5e99",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/maps/LocationSearch.tsx",
+    "lines": 417,
+    "sha256": "adb30a1d777471fa20b8fafa31a76e44a0a60d971dbe39bae8c141626c363312",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/maps/map-styles.css",
+    "lines": 202,
+    "sha256": "f5cda7f93ee5f933c8b35c9d9af0bbbd48e46dd808dcfd35a441cc07e7a1dbaf",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/maps/MapplsMapView.tsx",
+    "lines": 250,
+    "sha256": "39b743ca4e390bb2eea99e3663b9580bf014be87d25b91d2134eb82dc492ba26",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/maps/MapView.tsx",
+    "lines": 419,
+    "sha256": "554d6f5bb714163f2e0050789eb427023608aa6af0da4a11b3fb3c0ac0623e4a",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/RouteGuard.tsx",
+    "lines": 20,
+    "sha256": "047caf248d7e5a77dfd6a3a2e7cc8998bdaefdb51070fb4bedbb0d15cc31b55e",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/animated-footer.tsx",
+    "lines": 60,
+    "sha256": "5b7589ca5f262241aa6ff8cd9eaf20ced21790e5ca8a271bb060efdc73745a40",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/animated-number.tsx",
+    "lines": 62,
+    "sha256": "0833631cf5a6dfadbe97a0a166791d8e08324a94545758ad985627c59a6f127b",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/app-background.tsx",
+    "lines": 45,
+    "sha256": "6e43c95341a0979360dc9591fc38c8affee9918b90e566d11d36e337b666f404",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/crowd-canvas.tsx",
+    "lines": 289,
+    "sha256": "2be86e3be4ab21ffac08e8477437f99a63f5eff8748447638f14b12b254c76d8",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/cursor.tsx",
+    "lines": 172,
+    "sha256": "570968bda385adbd2ef0426d0db777df459386d7596888933cf76208de74610a",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/dashboard.tsx",
+    "lines": 162,
+    "sha256": "dc2d0a946f9aeee31ab49dd640a3932b317afe65795b3e5e4468bb314d59d4a6",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/data-folder.tsx",
+    "lines": 171,
+    "sha256": "dae8ef733e2bccfb5cefa873cdd7189c39fed8b7754b2679fc8f2e31b063a55c",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/folder-preview.tsx",
+    "lines": 1067,
+    "sha256": "91add4d1d22534b7ce32489ab2d28cc3bd27c69b238aa6b31f60b98c3f5d70c6",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/grid-canvas.tsx",
+    "lines": 145,
+    "sha256": "dafb20fc11f244844c4901660ceca9e105a04df65419df02940dd051b904883c",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/hover-expand.tsx",
+    "lines": 202,
+    "sha256": "f4a30450d2d1b95a3ccf7b63971a43312ce7ff775b901c1e6b9cae895b4730d0",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/index.ts",
+    "lines": 9,
+    "sha256": "dd067854a7878b5a836d0a98e2e2c8cfaab8796fca10f15405896a74ca99329d",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/kinetic-loader.tsx",
+    "lines": 90,
+    "sha256": "46f336740d55973a572d56a765bdb9d66afd01094caa7364afe8b0c0e006a15a",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/location-field.tsx",
+    "lines": 197,
+    "sha256": "f854dfca89dd65371f8f60af0924b8c97880f161c25b078accd13efe11b67da5",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/marquee.tsx",
+    "lines": 69,
+    "sha256": "72f84bcf3f9fd570040c7a6a741ce9fb481efc20d72add942eac6b7646d2535f",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/morph-text.tsx",
+    "lines": 71,
+    "sha256": "53f51885cfafddc347529ad2f172f3552974c56368d98991dc0dcb658ef1af8b",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/parallax-gallery.tsx",
+    "lines": 98,
+    "sha256": "1f1196d49e3d909db36d88e00e891a04e487cc3a971cc72b5b748ef6baff141a",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/pop-button.tsx",
+    "lines": 89,
+    "sha256": "347c1e8fc1a0b047d10ffb60e5c9afb9e17df84307e606568d0c15359f41cfa9",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/primitives.tsx",
+    "lines": 259,
+    "sha256": "9b0cf4a9b2c4cc6d6ea845036a5d86d044f0d4ba244f3a7e61c1a12afe3e6091",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/ride-carousel.tsx",
+    "lines": 156,
+    "sha256": "a89e45a66c77c6d156c7273830a4e5a788bacccdf4ca2d55aca99c3c4a14474b",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/ride-illustrations.tsx",
+    "lines": 146,
+    "sha256": "3fb464db080a447cbb618f57005a9ba856fad72e30471602d2fcce947670f0bd",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/scroll-reveal.tsx",
+    "lines": 238,
+    "sha256": "62da898cbc850243af004a9c823e2c41415e8295da60976fe2a27ff6baa26e24",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/smooth-input.tsx",
+    "lines": 393,
+    "sha256": "d62d5c98bea37bc37b2f9653d0ae328fc162a406884a1635598ca839d4292c58",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/smooth-scroll.tsx",
+    "lines": 41,
+    "sha256": "5ff9d953f27b990aae94f36e0808415494b6a18bc6e8204601c24017716a2cbf",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/social-flip-button.tsx",
+    "lines": 83,
+    "sha256": "f669811a3314621bd4888e216462ae02f92ad25a996fd8d3368ea8a98f2a60ca",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/staggered-grid.tsx",
+    "lines": 326,
+    "sha256": "ac341fa0a3126392f1674b791416e8d32e7d848ce0ea07ea2d4c587924f47b9a",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/text-roll.tsx",
+    "lines": 107,
+    "sha256": "b200ae3ce0420dc9fda40c16674f7b04c6d8b949f7091e10545df6a28b9352b7",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/traffic-hero.tsx",
+    "lines": 181,
+    "sha256": "a101f93dc57f731225752722ea7fd460dc79e9dc3be459626d09d96137639639",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/video-reveal.tsx",
+    "lines": 207,
+    "sha256": "76cb123ae2735d4fd3c14c5c696244bbaa730bc1808ee97981fd6f2b57eb7106",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/components/ui/wave-grid-background.tsx",
+    "lines": 451,
+    "sha256": "6d49a04aa7992b243f32244d37aa3463d5770520ba232abb2b749de2122cc7a6",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/hooks/useLocationTracking.ts",
+    "lines": 90,
+    "sha256": "12833d92e08aa29588b7711e80c84a1d96393635cbace81b34d7ed7b83d37418",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/hooks/useRealtime.ts",
+    "lines": 100,
+    "sha256": "ff652b6cc3a5cf7b2d572b4c23f6fd8487ed1466f4175b96bc385af87bf98399",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/hooks/useScrollAnimation.ts",
+    "lines": 102,
+    "sha256": "98e9e47da0da986d90ecd43d0c916188998af6f9bdb51ea010bf25a8fbfc9c3a",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/hooks/useStore.ts",
+    "lines": 88,
+    "sha256": "21a60100188f8ce6b1ff6e09161da51b8d2626a7d6c7de1369e71ba11f72554e",
+    "parseErrors": [],
+    "tables": [
+      "users"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/index.css",
+    "lines": 1314,
+    "sha256": "ffabf6b4e0c9995103df4f04d4c848efae69a10de0d55af38a847d32e386fd38",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/api.ts",
+    "lines": 559,
+    "sha256": "57c4711abdc22fbe41be74bd8f6aa155510157917ac1471eed29aaec49dd531a",
+    "parseErrors": [],
+    "tables": [
+      "rides",
+      "rides",
+      "rides",
+      "rides",
+      "rides",
+      "bookings",
+      "bookings",
+      "bookings",
+      "bookings",
+      "reviews",
+      "reviews",
+      "notifications",
+      "notifications",
+      "notifications",
+      "driver_verification",
+      "driver_verification",
+      "driver_verification",
+      "live_locations",
+      "live_locations",
+      "sos_alerts",
+      "sos_alerts",
+      "messages",
+      "messages",
+      "users",
+      "banned_users",
+      "admin_logs",
+      "sos_alerts",
+      "admin_logs",
+      "driver_verification",
+      "admin_logs",
+      "banned_users",
+      "admin_logs",
+      "users",
+      "rides",
+      "bookings",
+      "driver_verification",
+      "sos_alerts",
+      "saved_routes",
+      "saved_routes",
+      "saved_routes",
+      "announcements",
+      "announcements",
+      "admin_logs",
+      "announcements",
+      "admin_logs",
+      "ride_reports",
+      "ride_reports",
+      "ride_reports",
+      "admin_logs",
+      "support_messages",
+      "support_messages",
+      "support_messages",
+      "support_messages",
+      "support_messages",
+      "users",
+      "banned_users",
+      "admin_logs",
+      "rides",
+      "admin_logs"
+    ],
+    "rpc": [
+      "transition_ride",
+      "admin_analytics",
+      "user_stats"
+    ]
+  },
+  {
+    "file": "src/lib/auth.ts",
+    "lines": 86,
+    "sha256": "2eac0c42c7488dc494cc600a1f53ca06abd9274b70e0349a6551eacde9464548",
+    "parseErrors": [],
+    "tables": [
+      "users",
+      "users",
+      "users"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/maps.ts",
+    "lines": 521,
+    "sha256": "02f760e12e27c6fd326ed2696ad5aaf43096c4d64a646f7a5af03fa051843d85",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/navigation.tsx",
+    "lines": 11,
+    "sha256": "a5de419edba16fd38ba139fde732e4ff492e848c2ae06fc84b6b55db87e5cf8e",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/razorpay-checkout.ts",
+    "lines": 11,
+    "sha256": "27aaed4f32d891720577e97c386e42f0d02cbe8802a4fb0c063106b7d852b0fe",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/roles.ts",
+    "lines": 58,
+    "sha256": "7d7d28322c053042d1117d8afef81e83174ddc7a2c494ec6d85bfa81ea97a74f",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/server/payments.ts",
+    "lines": 40,
+    "sha256": "b5f3af62c8262b44e1ed7e6e60759e38095e02e22f890339e8a600101acc5bde",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": [
+      "fulfill_stripe_test_booking"
+    ]
+  },
+  {
+    "file": "src/lib/server/razorpay.ts",
+    "lines": 28,
+    "sha256": "6e1f1c2498e978efb20d72cd2b86bdae99a0ae08ed88205edcb531fc16f91bde",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": [
+      "fulfill_razorpay_test_booking"
+    ]
+  },
+  {
+    "file": "src/lib/server/simulation.ts",
+    "lines": 4,
+    "sha256": "5d89be8e933c937d9dc9dab2f7a19c5b77bdd40b03411bc20b27a97fb945142c",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/supabase.ts",
+    "lines": 36,
+    "sha256": "6fdc17db8d7cf03b1f84fbda8274add9c67c364166001d8b3a894f25890c4899",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/theme.ts",
+    "lines": 93,
+    "sha256": "73ef4141a2d445eb78a693abf76eeeeff1e7e59216658de50122dbf9e077e69c",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "lines": 11,
+    "sha256": "ac6564f028047023ceca230dda55646b24ea9d6d82fc5d78162f124d29c490de",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/AdminPanel.tsx",
+    "lines": 1086,
+    "sha256": "9cd506ce2e056f48c224cc63606df9d445ec9fb4f68437fcecf92ffb0f905fb9",
+    "parseErrors": [],
+    "tables": [
+      "attachments",
+      "attachments"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/Bookings.tsx",
+    "lines": 211,
+    "sha256": "f8bd86a6dec4f1093756e7e0d3631f5f5e2d9484697e63bd5308d046ebf88c6a",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/BookRide.tsx",
+    "lines": 347,
+    "sha256": "3a52087594dfa87a9e5ab52dd5c2421c1b3c130405f40b3ef2366eb5a570f707",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/Chat.tsx",
+    "lines": 197,
+    "sha256": "1bc573789f04a02adb35cba14424c8e1f14b593d81fbf5fb3b5e9f13978f06ab",
+    "parseErrors": [],
+    "tables": [
+      "attachments",
+      "attachments"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/CreateRide.tsx",
+    "lines": 438,
+    "sha256": "0efbaf3e12ddb1353762f6e7ac084e8255e3dfec4a9be6cf668c3d71adab7fe8",
+    "parseErrors": [],
+    "tables": [
+      "users"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/Landing.tsx",
+    "lines": 924,
+    "sha256": "b1ef0b9df5fb59b1d2ff6a587cd9698c5501f5e26d58f5bc73819c4c71315f44",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/LiveTracking.tsx",
+    "lines": 215,
+    "sha256": "3ae38c76c14e4dc8edf89bbbd28723b3ec0e3d056ae2702dfd2f056993bfd8df",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/Login.tsx",
+    "lines": 444,
+    "sha256": "f4e02521c56621d6dff76b570d791c2271975d32ba4e44b1fd3fe7efc0a6d41f",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/PendingAdmin.tsx",
+    "lines": 41,
+    "sha256": "bd81797924cf946c38b09a5552e08f94aa34bf7b27f5e4f94b6551a57127b948",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/PrivacyPolicy.tsx",
+    "lines": 20,
+    "sha256": "0562390da6d4d7e04fa7f55aa7378178cac57a1f73016dbfcd87987b644ce3d2",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/Profile.tsx",
+    "lines": 169,
+    "sha256": "fa7441063bd44979bc650d5847b6591e35e2e51d97f751c528e7bb7715219110",
+    "parseErrors": [],
+    "tables": [
+      "profile-photos",
+      "profile-photos"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/RideSearch.tsx",
+    "lines": 493,
+    "sha256": "28b934b55fb0c1ea3201d53f7f44637ef6dd0adcebd91a5c8e3518d9ed081fd9",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/RolePortal.tsx",
+    "lines": 159,
+    "sha256": "bfaf1ac15e996bfaedf4fc10d72d73de1ad7c422a7bf83952c4973decc749ccd",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/ServiceDashboard.tsx",
+    "lines": 732,
+    "sha256": "99b4b6f75de02afff6d0fb9158d8fff7959430efafd25d9e0b162155656fab4e",
+    "parseErrors": [],
+    "tables": [
+      "support_messages",
+      "sos_alerts",
+      "attachments",
+      "attachments",
+      "support_messages"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/Terms.tsx",
+    "lines": 21,
+    "sha256": "7efe9c7a1f58338ef504228a9bad2f0718ab97e9dd03303e36385e7954eba39f",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/UserDashboard.tsx",
+    "lines": 684,
+    "sha256": "6e70d09788308681f28d4c6cc59c9247813e9465e608d4f2c4d1d38aaeb4c663",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "src/screens/Verification.tsx",
+    "lines": 912,
+    "sha256": "9308b102e58c62c20e77530d902c71f6b3a0b3123311ba6a7cd24a8c459d4337",
+    "parseErrors": [],
+    "tables": [
+      "driver-documents",
+      "driver-documents",
+      "driver_verification"
+    ],
+    "rpc": []
+  },
+  {
+    "file": "src/types/index.ts",
+    "lines": 143,
+    "sha256": "ae53fad1a559e12b43720580bc968d0b6c1419d87b60febfe17a16c58277cb2f",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/admin-analytics-stripe-setup.sql",
+    "lines": 103,
+    "sha256": "7f572c310055f2bbcd9cc4559f9cb2d4f8cf08b61244a9f03cd38c3ea70268ba",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/feature-repair-setup.sql",
+    "lines": 141,
+    "sha256": "9067a37fc5af483a95711c2fb5619c416843eea510331640709921c5c45aa3ee",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/functions/mappls-proxy/index.ts",
+    "lines": 216,
+    "sha256": "91868d25c7218e91a5aff6908f844c64b5a762e13a17ceadd4a075678d56baa9",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/migrations/202611050001_foundation.sql",
+    "lines": 75,
+    "sha256": "0df31e8f859f843fe01d79d2f4b62a864fe97016fb6abff289d0888435cebb94",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/razorpay-test-setup.sql",
+    "lines": 34,
+    "sha256": "d4a446ad680bedc740471208b797cd8de11651e20641c6f15ccfa67a3afe58a0",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/simulated-checkout-setup.sql",
+    "lines": 53,
+    "sha256": "53119990bbe4b75aedad72b51b630d35a3bb6800c50bf2ece31de94d2d8809bf",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/tests/analytics-stripe.sql",
+    "lines": 32,
+    "sha256": "62990bce8df3870910c979dbaef5d8c98f70daced3b7062f03d8da14c059e58a",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/tests/razorpay-checkout.sql",
+    "lines": 38,
+    "sha256": "43237864b3f9713c206143fe361e042b033d77aca6acf7afa209b4916c6a17a8",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "supabase/tests/simulated-checkout.sql",
+    "lines": 40,
+    "sha256": "33913f5d0faab899186c55451fdfa52c49169969af1768b5632f33a53a70083e",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "tests/map-loader.test.mjs",
+    "lines": 20,
+    "sha256": "318a28bce663ec771b86477dd7a1f39eaf05b4b0762e14c775c137a5afb2b58e",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "tests/payments.test.mjs",
+    "lines": 9,
+    "sha256": "8c76960fbb6af27ea9537be1931428fde5b16e65cf9048e9acc1c821c55671a2",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "tests/razorpay.test.mjs",
+    "lines": 28,
+    "sha256": "ae138004fc2f6d2e52c93cdbe3cff461b426f0d78496ca035393115366c848f9",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "next.config.ts",
+    "lines": 4,
+    "sha256": "51df1d07502e21781e3807fe016585c41080d2b575bb938c1ac9b34e36888c74",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "package.json",
+    "lines": 60,
+    "sha256": "dc1359363aee2209189ce3d08248e2e292f32e11afdf947f3f9dd30bcf806ea1",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "tsconfig.json",
+    "lines": 50,
+    "sha256": "bc0a5a5841dbcbfe97ca88432f84cb9ba77d50461b9f3cf92728098d97268dcb",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "postcss.config.mjs",
+    "lines": 2,
+    "sha256": "cc8f514ba7fda07a2e2828670c99e34275f314b350628d8c2ab39e68e50bf9f8",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  },
+  {
+    "file": "public/manifest.json",
+    "lines": 27,
+    "sha256": "9461f3c771b3b5c03a7b59e9dce856d71c62009413701addbee0e2fcba23b4a3",
+    "parseErrors": [],
+    "tables": [],
+    "rpc": []
+  }
+]

@@ -1,0 +1,81 @@
+[
+  {
+    "name": "razorpay-cancel-no-login",
+    "status": 401,
+    "detail": "Sign in first"
+  },
+  {
+    "name": "razorpay-webhook-unconfigured",
+    "status": 503,
+    "detail": "Webhook not configured"
+  },
+  {
+    "name": "checkout-no-login",
+    "status": 401,
+    "detail": "Sign in before booking."
+  },
+  {
+    "name": "razorpay-confirm-no-login",
+    "status": 401,
+    "detail": "Sign in before confirming payment."
+  },
+  {
+    "name": "stripe-confirm-no-login",
+    "status": 401,
+    "detail": "Sign in to confirm this booking."
+  },
+  {
+    "name": "simulation-disabled",
+    "status": 403,
+    "detail": "Local development simulation is disabled."
+  },
+  {
+    "name": "simulation-cancel-disabled",
+    "status": 403,
+    "detail": "Simulation disabled."
+  },
+  {
+    "name": "unsigned-webhook",
+    "status": 400,
+    "detail": "Webhook signature configuration required."
+  },
+  {
+    "name": "invalid-route",
+    "status": 400,
+    "detail": "Valid start, end and routing profile are required."
+  },
+  {
+    "name": "valid-delhi-route",
+    "status": 200,
+    "detail": {
+      "features": 1
+    }
+  },
+  {
+    "name": "geocode",
+    "status": 200,
+    "detail": {
+      "features": 4
+    }
+  },
+  {
+    "name": "invalid-geocode",
+    "status": 400,
+    "detail": "Invalid location query."
+  },
+  {
+    "name": "manifest",
+    "status": 200,
+    "detail": {}
+  },
+  {
+    "name": "icon-192",
+    "status": 200,
+    "detail": "image/png"
+  },
+  {
+    "name": "icon-512",
+    "status": 200,
+    "detail": "image/png"
+  }
+]

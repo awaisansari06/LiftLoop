@@ -1,0 +1,25 @@
+begin;
+create temp table repair_fixture(driver uuid,rider uuid,trip uuid,booking uuid);
+insert into repair_fixture select (select id from public.users where user_type='student' order by id limit 1),(select id from public.users where user_type='student' order by id offset 1 limit 1),gen_random_uuid(),gen_random_uuid();
+grant select on repair_fixture to authenticated;
+insert into public.rides(id,driver_id,from_location,to_location,departure_time,seats_available,price_per_seat) select trip,driver,'{"lat":28.6,"lng":77.2}', '{"lat":28.7,"lng":77.3}',now()+interval '1 day',2,10 from repair_fixture;
+insert into public.bookings(id,ride_id,rider_id,seats_booked,total_price,payment_status,status,payment_provider) select booking,trip,rider,1,10,'paid','confirmed','razorpay_test' from repair_fixture;
+select set_config('request.jwt.claim.sub',(select driver::text from repair_fixture),true);
+set local role authenticated;
+select public.transition_ride((select trip from repair_fixture),'in_progress');
+insert into public.live_locations(ride_id,driver_id,location) select trip,driver,'{"lat":28.6,"lng":77.2}' from repair_fixture;
+select set_config('request.jwt.claim.sub',(select rider::text from repair_fixture),true);
+do $$ begin
+ if not exists(select 1 from public.rides where id=(select trip from repair_fixture) and status='in_progress') then raise exception 'Passenger lost ride access'; end if;
+ if not exists(select 1 from public.live_locations where ride_id=(select trip from repair_fixture)) then raise exception 'Passenger lost location access'; end if;
+ begin perform public.transition_ride((select trip from repair_fixture),'completed'); raise exception 'Passenger changed ride status'; exception when insufficient_privilege then null; end;
+ if public.user_stats((select rider from repair_fixture))->>'total_bookings' is null then raise exception 'Stats unavailable'; end if;
+end $$;
+select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000000',true);
+do $$ begin if exists(select 1 from public.live_locations where ride_id=(select trip from repair_fixture)) then raise exception 'Unrelated account saw location'; end if; end $$;
+select set_config('request.jwt.claim.sub',(select driver::text from repair_fixture),true);
+select public.transition_ride((select trip from repair_fixture),'completed');
+do $$ begin if not exists(select 1 from public.bookings where id=(select booking from repair_fixture) and status='completed') then raise exception 'Booking not completed atomically'; end if; end $$;
+reset role;
+rollback;
+select 'PASS: lifecycle, booking completion, passenger access, unauthorized transition and unrelated location denial; fixtures rolled back' as result;

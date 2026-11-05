@@ -1,0 +1,174 @@
+{
+  "checkedAt": "2026-11-05T10:35:47.300Z",
+  "tables": [
+    {
+      "table": "users",
+      "serverError": null,
+      "count": 3,
+      "anonymousError": null,
+      "anonymousCount": 0
+    },
+    {
+      "table": "rides",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": null,
+      "anonymousCount": 0
+    },
+    {
+      "table": "bookings",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "reviews",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "notifications",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "driver_verification",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "live_locations",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "sos_alerts",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "messages",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "banned_users",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "admin_logs",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "saved_routes",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "announcements",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "ride_reports",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    },
+    {
+      "table": "support_messages",
+      "serverError": null,
+      "count": 0,
+      "anonymousError": "42501",
+      "anonymousCount": null
+    }
+  ],
+  "buckets": [
+    {
+      "name": "profile-photos",
+      "public": false
+    },
+    {
+      "name": "driver-documents",
+      "public": false
+    },
+    {
+      "name": "attachments",
+      "public": false
+    }
+  ],
+  "rpc": [
+    {
+      "name": "user_stats",
+      "error": "42501"
+    },
+    {
+      "name": "admin_analytics",
+      "error": "42501"
+    }
+  ],
+  "edge": [
+    {
+      "name": "mappls-route",
+      "status": 404
+    },
+    {
+      "name": "mappls-proxy",
+      "status": 404
+    },
+    {
+      "name": "send-sos",
+      "status": 404
+    },
+    {
+      "name": "send-otp",
+      "status": 404
+    },
+    {
+      "name": "verify-document",
+      "status": 404
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": true,
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY": true,
+    "NEXT_PUBLIC_MAPPLS_API_KEY": true,
+    "ORS_API_KEY": true,
+    "RAZORPAY_KEY_ID": true,
+    "RAZORPAY_KEY_SECRET": true,
+    "SUPABASE_SECRET_KEY": true,
+    "STRIPE_SECRET_KEY": false,
+    "STRIPE_WEBHOOK_SECRET": false
+  },
+  "mode": "razorpay",
+  "bucketError": null,
+  "accountRoles": {
+    "admin": 1,
+    "student": 2
+  },
+  "nonCampusAccounts": 3
+}

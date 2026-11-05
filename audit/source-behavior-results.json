@@ -1,0 +1,130 @@
+{
+  "routeGuards": [
+    {
+      "role": "student",
+      "allowed": [],
+      "access": "redirected"
+    },
+    {
+      "role": "student",
+      "allowed": [
+        "student"
+      ],
+      "access": "allowed"
+    },
+    {
+      "role": "student",
+      "allowed": [
+        "admin"
+      ],
+      "access": "redirected"
+    },
+    {
+      "role": "driver",
+      "allowed": [],
+      "access": "redirected"
+    },
+    {
+      "role": "driver",
+      "allowed": [
+        "student"
+      ],
+      "access": "redirected"
+    },
+    {
+      "role": "driver",
+      "allowed": [
+        "admin"
+      ],
+      "access": "redirected"
+    },
+    {
+      "role": "admin",
+      "allowed": [],
+      "access": "redirected"
+    },
+    {
+      "role": "admin",
+      "allowed": [
+        "student"
+      ],
+      "access": "redirected"
+    },
+    {
+      "role": "admin",
+      "allowed": [
+        "admin"
+      ],
+      "access": "allowed"
+    },
+    {
+      "role": "both",
+      "allowed": [],
+      "access": "allowed"
+    },
+    {
+      "role": "both",
+      "allowed": [
+        "student"
+      ],
+      "access": "allowed"
+    },
+    {
+      "role": "both",
+      "allowed": [
+        "admin"
+      ],
+      "access": "allowed"
+    },
+    {
+      "role": "pending_admin",
+      "allowed": [],
+      "access": "redirected"
+    },
+    {
+      "role": "pending_admin",
+      "allowed": [
+        "student"
+      ],
+      "access": "redirected"
+    },
+    {
+      "role": "pending_admin",
+      "allowed": [
+        "admin"
+      ],
+      "access": "redirected"
+    }
+  ],
+  "routeCache": {
+    "requestedProfiles": [
+      "driving-car",
+      "cycling-regular"
+    ],
+    "actualProviderRequests": 1,
+    "cyclingRequestSent": false
+  },
+  "geolocation": {
+    "permissionDeniedReturns": [
+      28.6139,
+      77.209
+    ],
+    "throwsError": false
+  },
+  "dateHandling": {
+    "chosenLocal": "2026-11-05T10:00:00+05:30",
+    "sentByForm": "2026-11-05T10:00:00",
+    "instantIfDatabaseUTC": "2026-11-05T10:00:00Z",
+    "intendedInstant": "2026-11-05T04:30:00.000Z",
+    "earlyMorningDateButton": "2026-11-04",
+    "displayedLocalDay": 5,
+    "localMidnightRide": "2026-11-04T19:00:00+00:00",
+    "matchesNov5Filter": false
+  },
+  "corridorMatching": {
+    "oppositeDirectionShortRideMatches": true
+  },
+  "createRideClear": {
+    "clearedPickupStillAllowsNext": true
+  }
+}

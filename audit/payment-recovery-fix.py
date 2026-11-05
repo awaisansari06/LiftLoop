@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('src/screens/BookRide.tsx');s=p.read_text().replace("'liftloop_pending_razorpay'","`liftloop_pending_razorpay:${user.id}:${ride.id}`");s=s.replace("if(confirmation.status!=='confirmed')throw", "if(confirmation.status==='refunded') { sessionStorage.removeItem(`liftloop_pending_razorpay:${user.id}:${ride.id}`); throw new Error('Payment refunded. No booking was created.'); }\n          if(confirmation.status!=='confirmed')throw");p.write_text(s)

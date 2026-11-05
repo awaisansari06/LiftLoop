@@ -1,0 +1,141 @@
+diff --git a/src/components/common/Logo.tsx b/src/components/common/Logo.tsx
+index 22907ca..6118c34 100644
+--- a/src/components/common/Logo.tsx
++++ b/src/components/common/Logo.tsx
+@@ -32,6 +32,7 @@ export function LogoText({ light = false }: { light?: boolean }) {
+       fontWeight: 800,
+       letterSpacing: '-0.02em',
+       color: light ? 'white' : T.navy,
++      whiteSpace: 'nowrap'
+     }}>
+       Lift<span style={{ color: T.gold }}>Loop</span>
+     </span>
+diff --git a/src/index.css b/src/index.css
+index 73bd6b4..700b161 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -342,9 +342,13 @@ input:focus, textarea:focus, select:focus {
+     text-align: center !important;
+   }
+   .mobile-reverse {
++    display: flex !important;
+     flex-direction: column-reverse !important;
+   }
+   .mobile-grid-stack {
+     grid-template-columns: 1fr !important;
+   }
++  .mobile-grid-2 {
++    grid-template-columns: 1fr 1fr !important;
++  }
+ }
+diff --git a/src/pages/DriverDashboard.tsx b/src/pages/DriverDashboard.tsx
+index 8761241..36b1aa1 100644
+--- a/src/pages/DriverDashboard.tsx
++++ b/src/pages/DriverDashboard.tsx
+@@ -212,7 +212,7 @@ export default function DriverDashboard() {
+         )}
+ 
+         {/* Quick Actions */}
+-        <div className="mobile-grid-stack" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:12, marginTop: isVerified ? -28 : 0, marginBottom:24, position:'relative', zIndex:3 }}>
++        <div className="mobile-grid-2" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:12, marginTop: isVerified ? -28 : 0, marginBottom:24, position:'relative', zIndex:3 }}>
+           {quickActions.map((a,i) => (
+             <motion.div key={i} initial={{ opacity:0,y:20 }} animate={{ opacity:1,y:0 }} transition={{ delay:0.1+i*0.06 }}>
+               <Link to={a.path} style={{ textDecoration:'none' }}>
+@@ -229,7 +229,7 @@ export default function DriverDashboard() {
+         </div>
+ 
+         {/* Stats Grid */}
+-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:14, marginBottom:28 }}>
++        <div className="mobile-grid-stack" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:14, marginBottom:28 }}>
+           {[
+             { label:'Active Rides', value: String(rides.length), icon:<PiCarBold size={20}/>, color:T.green, bg:T.greenLight },
+             { label:'Status', value:isVerified?'Verified':isPending?'Pending':'Unverified', icon:<PiCheckCircleBold size={20}/>, color:isVerified?T.green:T.orange, bg:isVerified?T.greenLight:T.orangeLight },
+@@ -277,7 +277,7 @@ export default function DriverDashboard() {
+             My Active Rides
+           </h2>
+           {loading ? (
+-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:16 }}>
++            <div className="mobile-grid-stack" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:16 }}>
+               {[1,2].map(i=>(
+                 <div key={i} style={{ background:T.surface, borderRadius:20, padding:24, border:`1px solid ${T.border}` }}>
+                   <div style={{ height:16, width:'60%', background:T.blue50, borderRadius:8, marginBottom:12, animation:'pulse 1.5s infinite' }}/>
+@@ -310,7 +310,7 @@ export default function DriverDashboard() {
+                 </motion.div>
+               )}
+               
+-              <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:16 }}>
++              <div className="mobile-grid-stack" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:16 }}>
+               {rides.map((ride,i)=>(
+                 <motion.div key={ride.id} initial={{ opacity:0,y:20 }} animate={{ opacity:1,y:0 }} transition={{ delay:0.2+i*0.08 }}>
+                   <motion.div whileHover={{ y:-6, boxShadow:'0 16px 40px rgba(20,184,166,0.1)' }}
+diff --git a/src/pages/Landing.tsx b/src/pages/Landing.tsx
+index f1e5d22..6e84235 100644
+--- a/src/pages/Landing.tsx
++++ b/src/pages/Landing.tsx
+@@ -148,7 +148,7 @@ export default function Landing() {
+                 <span style={{ fontSize:13, color:T.gold, fontWeight:600 }}>JC Bose University (YMCA), Faridabad</span>
+               </motion.div>
+ 
+-              <h1 style={{ fontSize:'clamp(36px,5vw,56px)', fontWeight:800, color:'white', lineHeight:1.1,
++              <h1 style={{ fontSize:'clamp(36px,8vw,56px)', fontWeight:800, color:'white', lineHeight:1.1,
+                 fontFamily:FONT.heading, letterSpacing:'-0.02em' }}>
+                 Your Campus<br/>
+                 <span style={{ color:T.gold }}>Ride Network</span>
+@@ -168,7 +168,7 @@ export default function Landing() {
+               </div>
+ 
+               {/* Trust badges */}
+-              <div style={{ display:'flex', gap:20, marginTop:36 }}>
++              <div style={{ display:'flex', gap:20, marginTop:36, flexWrap:'wrap' }}>
+                 {[
+                   { icon:<PiShieldCheckBold size={14}/>, t:'Verified Students' },
+                   { icon:<PiMapPinBold size={14}/>, t:'Live Tracking' },
+@@ -258,7 +258,7 @@ export default function Landing() {
+           <div style={{ maxWidth:1000, margin:'0 auto' }}>
+             <div className="reveal" style={{ textAlign:'center', marginBottom:48 }}>
+               <span style={{ fontSize:13,fontWeight:600,color:T.gold,textTransform:'uppercase',letterSpacing:2 }}>Simple & Secure</span>
+-              <h2 style={{ fontSize:36,fontWeight:800,color:T.dark,marginTop:8,fontFamily:FONT.heading }}>
++              <h2 style={{ fontSize:'clamp(28px,6vw,36px)', fontWeight:800, color:T.dark, marginTop:8, fontFamily:FONT.heading }}>
+                 How It <span style={{ color:T.gold }}>Works</span>
+               </h2>
+               <p style={{ color:T.gray,fontSize:16,marginTop:8,maxWidth:500,margin:'8px auto 0' }}>
+@@ -296,7 +296,7 @@ export default function Landing() {
+           <div style={{ maxWidth:1000, margin:'0 auto' }}>
+             <div className="reveal" style={{ textAlign:'center', marginBottom:48 }}>
+               <span style={{ fontSize:13,fontWeight:600,color:T.gold,textTransform:'uppercase',letterSpacing:2 }}>Why Choose Us</span>
+-              <h2 style={{ fontSize:36,fontWeight:800,color:T.dark,marginTop:8,fontFamily:FONT.heading }}>
++              <h2 style={{ fontSize:'clamp(28px,6vw,36px)', fontWeight:800, color:T.dark, marginTop:8, fontFamily:FONT.heading }}>
+                 Built for <span style={{ color:T.navy }}>Campus Life</span>
+               </h2>
+             </div>
+@@ -335,7 +335,7 @@ export default function Landing() {
+             <div style={{ position:'absolute', width:120, height:120, borderRadius:'50%', background:'rgba(200,149,108,0.08)',
+               bottom:-30, left:-20 }} />
+ 
+-            <h2 style={{ fontSize:32, fontWeight:800, color:'white', fontFamily:FONT.heading, position:'relative', zIndex:1 }}>
++            <h2 style={{ fontSize:'clamp(24px,6vw,32px)', fontWeight:800, color:'white', fontFamily:FONT.heading, position:'relative', zIndex:1 }}>
+               Ready to ride <span style={{ color:T.gold }}>smarter</span>?
+             </h2>
+             <p style={{ color:'rgba(255,255,255,0.6)', fontSize:16, marginTop:8, maxWidth:420, margin:'8px auto 0', position:'relative', zIndex:1 }}>
+diff --git a/src/pages/UnifiedDashboard.tsx b/src/pages/UnifiedDashboard.tsx
+index dcda5cc..3675b5d 100644
+--- a/src/pages/UnifiedDashboard.tsx
++++ b/src/pages/UnifiedDashboard.tsx
+@@ -159,7 +159,7 @@ export default function UnifiedDashboard() {
+       <div style={{ maxWidth:1200, margin:'-32px auto 0', padding:'0 24px 64px', position:'relative', zIndex:20 }}>
+         
+         {/* Quick Links */}
+-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))', gap:16, marginBottom:40 }}>
++        <div className="mobile-grid-stack" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))', gap:16, marginBottom:40 }}>
+           {quickLinks.map((link,i)=>(
+             <motion.div key={i} initial={{ opacity:0,y:20 }} animate={{ opacity:1,y:0 }} transition={{ delay:0.3+i*0.1 }}>
+               <Link to={link.to} style={{ textDecoration:'none', display:'block' }}>
+@@ -260,7 +260,7 @@ export default function UnifiedDashboard() {
+                   <p style={{ color:T.textSec, fontSize:14 }}>You haven't offered any rides yet.</p>
+                 </div>
+               ) : (
+-                <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:16 }}>
++                <div className="mobile-grid-stack" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:16 }}>
+                   {myRides.map((ride,i)=>(
+                     <motion.div key={ride.id} initial={{ opacity:0,y:20 }} animate={{ opacity:1,y:0 }} transition={{ delay:0.2+i*0.08 }}>
+                       <motion.div whileHover={{ y:-6, boxShadow:'0 16px 40px rgba(20,184,166,0.1)' }}

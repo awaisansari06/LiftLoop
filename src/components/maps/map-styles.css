@@ -1,0 +1,201 @@
+/* ============= MAPPLS MAP STYLES ============= */
+
+/* Map container */
+.map-container {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(27, 43, 75, 0.06);
+  border: 1px solid var(--border, #DCE3D9);
+}
+
+.map-container-fullscreen {
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* ============= CUSTOM MARKERS ============= */
+
+.current-location-marker-outer {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse-location 2s ease-out infinite;
+}
+
+.current-location-marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3B82F6;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+.custom-marker-a {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #14B8A6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.35);
+  transition: transform 0.2s;
+}
+
+.custom-marker-a:hover { transform: scale(1.15); }
+
+.custom-marker-b {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #F43F5E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.35);
+  transition: transform 0.2s;
+}
+
+.custom-marker-b:hover { transform: scale(1.15); }
+
+.vehicle-marker {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border: 2px solid #FFFFFF;
+  transition: transform 0.2s;
+}
+
+.vehicle-marker:hover { transform: scale(1.12); }
+
+/* ============= ANIMATIONS ============= */
+
+@keyframes pulse-location {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Locate button */
+.locate-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(253, 251, 247, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border, #DCE3D9);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy, #173F35);
+  transition: all 0.3s ease;
+}
+
+.locate-btn:hover {
+  background: var(--navy-50, #EAF0E9);
+  border-color: rgba(27, 43, 75, 0.2);
+  box-shadow: 0 6px 24px rgba(27, 43, 75, 0.12);
+  transform: translateY(-1px);
+}
+
+.locate-btn:active {
+  transform: translateY(0);
+}
+
+/* ============= MAPPLS OVERRIDES ============= */
+
+/* Override Mappls default zoom controls */
+.mappls-ctrl-zoom {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid var(--border, #DCE3D9) !important;
+}
+
+.mappls-ctrl-zoom button {
+  background: rgba(253, 251, 247, 0.95) !important;
+  color: #0F172A !important;
+  border: none !important;
+  width: 36px !important;
+  height: 36px !important;
+  font-size: 16px !important;
+  transition: all 0.2s !important;
+}
+
+.mappls-ctrl-zoom button:hover {
+  background: var(--navy-50, #EAF0E9) !important;
+  color: var(--navy, #173F35) !important;
+}
+
+/* Override Mappls attribution */
+.mappls-ctrl-bottom-right,
+.mappls-ctrl.mappls-ctrl-attrib {
+  font-size: 10px !important;
+  opacity: 0.6 !important;
+}
+
+/* Override Mappls popup styles */
+.mappls-popup-content-wrapper {
+  border-radius: 14px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  padding: 0 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+.mappls-popup-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  color: #0F172A !important;
+}
+
+.mappls-popup-tip {
+  border-top-color: white !important;
+}
+
+/* ============= RESPONSIVE ============= */
+
+@media (max-width: 768px) {
+  .map-container {
+    border-radius: 16px;
+  }
+
+  .locate-btn {
+    bottom: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+}
