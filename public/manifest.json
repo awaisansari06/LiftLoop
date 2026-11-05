@@ -1,7 +1,7 @@
 {
   "name": "LiftLoop",
   "short_name": "LiftLoop",
-  "description": "Campus Carpooling for JC Bose University. Share rides, save money, travel safe.",
+  "description": "Community carpooling with LiftLoop. Share rides, save money, travel safe.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0F1A33",

@@ -202,7 +202,7 @@ function HeroSearch() {
 
 /* How pooling works — four steps */
 const STEPS = [
-  { n: "01", icon: <GraduationCap className="size-5" />, title: "Verify with campus email", body: "Sign in with your JC Bose UST Google account. One-time check — no paperwork." },
+  { n: "01", icon: <GraduationCap className="size-5" />, title: "Sign in with Google", body: "Sign in with your Google account. One-time check — no paperwork." },
   { n: "02", icon: <Route className="size-5" />, title: "Match on your corridor", body: "We surface only rides already travelling your route, in your direction." },
   { n: "03", icon: <Wallet className="size-5" />, title: "Agree the fare", body: "A fair, distance-capped price. Counter-offer if you like — no surge, ever." },
   { n: "04", icon: <Navigation className="size-5" />, title: "Track, chat, arrive", body: "Live GPS the whole way, in-app chat, one-tap SOS. Split at the pump." },
@@ -219,7 +219,7 @@ const RIDE_SLIDES: RideSlide[] = [
 ];
 
 const MARQUEE = [
-  "VERIFIED @jcboseust.ac.in",
+  "GOOGLE ACCOUNT SIGN-IN",
   "SPLIT THE FUEL",
   "NO SURGE, EVER",
   "LIVE-TRACKED TRIPS",
@@ -232,7 +232,7 @@ const STATS = [
   { num: 100, prefix: "", suffix: "%", label: "Drivers verified", note: "Licence + college ID" },
   { num: 100, prefix: "", suffix: "%", label: "Rides tracked", note: "Live GPS + SOS" },
   { num: 0, prefix: "₹", suffix: "", label: "Surge & commission", note: "Split real fuel only" },
-  { num: 1, prefix: "", suffix: "", label: "Campus, closed", note: "@jcboseust.ac.in" },
+  { num: 1, prefix: "", suffix: "", label: "Community", note: "Share the journey" },
 ];
 
 /* Trust pillars — hover-expand cards (collapse/open morphism). The verified
@@ -245,7 +245,7 @@ type TrustCard = {
   stats?: typeof STATS;
 };
 const TRUST_CARDS: TrustCard[] = [
-  { tone: "navy", icon: <ShieldCheck className="size-6" />, title: "Every face is verified", body: "Every driver goes through a two-step check: a valid driving licence and a university-issued college ID verified by campus administration. Riders sign in with their @jcboseust.ac.in email — so there are zero strangers on the platform. Your safety starts before you even book a ride.", stats: STATS },
+  { tone: "navy", icon: <ShieldCheck className="size-6" />, title: "Every face is verified", body: "Every driver goes through a two-step check: a valid driving licence and a university-issued college ID verified by campus administration. Riders sign in with their Google account. Your safety starts before you even book a ride.", stats: STATS },
   { tone: "sky", icon: <Navigation className="size-6" />, title: "Live GPS on every ride", body: "From the moment you leave to the moment you arrive, your entire trip is tracked on a live map. Auto-share your ETA with emergency contacts, and both rider and driver can see the route in real time. If the car goes off-route, you'll know instantly." },
   { tone: "clay", icon: <Zap className="size-6" />, title: "One-tap SOS", body: "Press the SOS button and your live location, ride details, and an emergency alert are instantly sent to campus security and your emergency contacts. It's always accessible — one tap, no menus, no delays. Available on every active ride." },
   { tone: "sage", icon: <MessageCircle className="size-6" />, title: "Chat & video support", body: "Coordinate your pickup point, share landmarks, or reach live admin support — all inside the app without revealing your personal phone number. Messages are tied to the ride and monitored for safety, with admin moderation if needed." },
@@ -561,7 +561,7 @@ export default function Landing() {
             >
               <ShieldCheck className="size-3.5 text-accent" />
               <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                JC Bose University · YMCA Faridabad
+                LiftLoop · Share the journey
               </span>
             </motion.div>
 
@@ -580,7 +580,7 @@ export default function Landing() {
               transition={{ delay: 0.7, duration: 0.6 }}
               className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
             >
-              The closed carpool network built only for JC Bose University students and staff —
+              The carpool network built for students and staff —
               verified faces, live-tracked trips, fares split at the pump.
               <span className="font-semibold text-foreground"> No surge. No strangers.</span>
             </motion.p>
@@ -606,8 +606,7 @@ export default function Landing() {
               className="mt-5 text-base font-medium text-muted-foreground"
             >
               The pool built for{" "}
-              <MorphText words={["students", "staff", "faculty", "you"]} textClassName="font-extrabold" /> at
-              JC Bose UST.
+              <MorphText words={["students", "staff", "faculty", "you"]} textClassName="font-extrabold" />.
             </motion.p>
 
             <motion.div
@@ -680,7 +679,7 @@ export default function Landing() {
               <Reveal delay={0.16}>
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                   <PopButton onClick={() => navigate("/portal")}>Start pooling</PopButton>
-                  <VideoReveal src="brand:intro">
+                  <VideoReveal src="/launch.mp4" poster="/launch-poster.jpg">
                     <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-[15px] font-semibold text-foreground transition-colors hover:border-accent">
                       <Play className="size-4 fill-current" /> Meet LiftLoop
                     </span>
@@ -830,7 +829,7 @@ export default function Landing() {
           </Container>
         </section>
 
-        {/* ── SEE IT IN MOTION — branded dark thumbnail (no white poster) ── */}
+        {/* ── SEE IT IN MOTION — branded thumbnail, product launch film ── */}
         <section className="py-16 sm:py-20">
           <Container size="6xl">
             <Reveal>
@@ -842,7 +841,7 @@ export default function Landing() {
               />
             </Reveal>
             <Reveal delay={0.1}>
-              <VideoReveal src="brand:intro" className="group block">
+              <VideoReveal src="/launch.mp4" poster="/launch-poster.jpg" className="group block" hint={false}>
                 <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-navy to-navy-light shadow-lg">
                   <div className="absolute inset-0 grid place-items-center">
                     <div className="text-center">
@@ -875,7 +874,7 @@ export default function Landing() {
               </RevealItem>
               <RevealItem>
                 <p className="mx-auto mt-5 max-w-xl text-lg text-white/70">
-                  Verify your JC Bose UST account and start sharing rides across campus in minutes.
+                  Sign in to your LiftLoop account and start sharing rides across campus in minutes.
                 </p>
               </RevealItem>
               <RevealItem>
@@ -899,7 +898,7 @@ export default function Landing() {
             <span className="font-display text-lg font-extrabold tracking-tight text-white">
               Lift<span className="text-accent">Loop</span>
             </span>
-            <span className="ml-3 text-sm text-white/55">© {year} · Made for JC Bose UST</span>
+            <span className="ml-3 text-sm text-white/55">© {year} · LiftLoop</span>
           </div>
           <div className="flex flex-col items-start gap-4 sm:items-end">
             <SocialFlipButton />

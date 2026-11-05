@@ -154,7 +154,7 @@ export default function AdminPanel() {
             <div className="relative">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
                 <span className="size-1.5 rounded-full bg-danger animate-pulse" />
-                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">Admin console · JC Bose UST</span>
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">Admin console · LiftLoop</span>
               </div>
               <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
                 Command <span className="text-accent">center.</span>

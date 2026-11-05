@@ -338,7 +338,7 @@ export default function Verification() {
         <Reveal>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <Eyebrow className="mb-2">Service · JC Bose UST</Eyebrow>
+              <Eyebrow className="mb-2">Service · LiftLoop</Eyebrow>
               <h1 className="font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
                 Driver <span className="text-accent">verification</span>
               </h1>
@@ -661,7 +661,7 @@ export default function Verification() {
 
                       <DocUpload
                         label="College / University ID"
-                        hint="Your JC Bose UST student or staff ID card."
+                        hint="Your student or staff ID card."
                         file={idCardFile}
                         existingUrl={verification?.id_card_photo}
                         onFile={setIdCardFile}

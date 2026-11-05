@@ -85,17 +85,15 @@ export default function Login() {
   const navigate = useNavigate();
   const reduce = useReducedMotion();
 
-  // Demo/test login for local UI verification. Shown in dev, or on any build via
-  // the ?demo=1 flag. It injects a mock profile into the store (no Supabase
-  // session), so protected dashboards render with their empty/live states — no
-  // real account and no access to anyone's data.
-  const demoEnabled = (process.env.NODE_ENV === 'development') || searchParams.has("demo");
+  // Mock profiles are only available during local development.
+  const demoEnabled = process.env.NODE_ENV === 'development';
 
   function loginAsDemo(type: "student" | "driver" | "admin") {
+    if (!demoEnabled) return;
     const meta = {
-      student: { name: "Test User", email: "test.user@jcboseust.ac.in" },
-      driver: { name: "Test Service", email: "test.service@jcboseust.ac.in" },
-      admin: { name: "Test Admin", email: "test.admin@jcboseust.ac.in" },
+      student: { name: "Test User", email: "test.user@example.com" },
+      driver: { name: "Test Service", email: "test.service@example.com" },
+      admin: { name: "Test Admin", email: "test.admin@example.com" },
     }[type];
     const mock: User = {
       id: `demo-${type}`,
@@ -149,7 +147,7 @@ export default function Login() {
             <div className="mt-9 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
               <span className={cn("size-1.5 rounded-full", meta.dot)} />
               <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">
-                JC Bose UST · {meta.label} Portal
+                LiftLoop · {meta.label} Portal
               </span>
             </div>
           </div>
@@ -215,7 +213,7 @@ export default function Login() {
               {meta.label} sign in
             </h2>
             <p className="mt-1.5 text-base text-muted-foreground">
-              JC Bose University of Science &amp; Technology, YMCA
+              Share rides with the LiftLoop community
             </p>
 
             {/* role tabs */}

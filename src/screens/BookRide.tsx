@@ -320,6 +320,7 @@ export default function BookRide() {
                   <CheckCircle2 className="size-4 shrink-0 text-success" />
                   Test checkout only — no real money is charged. Your booking is confirmed after the test completes.
                 </p>
+                <p className="mt-3 text-xs text-muted-foreground">After booking, open Pickup details & tracking to set your exact meeting point, drop-off and landmark. Cancel before departure for a full test-payment refund; online cancellation closes when the driver leaves. Stripe refunds require support.</p>
 
                 {user ? (
                   <Button className="mt-4 w-full" onClick={handleBook} loading={booking} icon={!booking ? <CheckCircle2 className="size-4" /> : undefined}>

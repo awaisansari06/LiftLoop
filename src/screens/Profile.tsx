@@ -158,7 +158,7 @@ export default function Profile() {
             </span>
             <div>
               <p className="text-sm font-semibold text-foreground">University verified · {roleLabel(user.user_type)}</p>
-              <p className="text-xs text-muted-foreground">Your account is verified via your JC Bose UST email.</p>
+              <p className="text-xs text-muted-foreground">You signed in with your Google account.</p>
             </div>
           </Panel>
         </Reveal>

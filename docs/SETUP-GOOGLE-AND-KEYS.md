@@ -128,7 +128,7 @@ DigiLocker is a Government of India service; getting credentials takes a busines
 
 If you want it:
 
-1. Open <https://partners.digitallocker.gov.in>. Sign up as a partner (use the same email that owns the YMCA integration).
+1. Open <https://partners.digitallocker.gov.in>. Sign up as a partner (use the same email that owns the DigiLocker integration).
 2. Under **My Apps** → **Register New App**:
    - App name: `LiftLoop`
    - Domain: your domain, or `hcmasdaadvlrbpxexucs.supabase.co` for now
@@ -212,7 +212,7 @@ You should now see, in order:
 6. **Book flow**: 6-vehicle list with fastest / AC pills, seat pips, seat stepper, UPI/Cash toggle, fare breakdown.
 7. **Live tracking**: moving vehicle marker that interpolates GPS updates and rotates toward direction of travel, movement trail, auto-follow crosshair, red **SOS** in top-right.
 8. **Alarm** (full-screen red): hold-3s disc, siren haptic pattern, Call 112 / emergency contact / WhatsApp share.
-9. **Verification portal** (Profile → Identity verification): fast lane for DigiLocker (YMCA-only), or AI-assisted camera flow with real-time Gemini extraction.
+9. **Verification portal** (Profile → Identity verification): fast lane for DigiLocker (identity verification), or AI-assisted camera flow with real-time Gemini extraction.
 10. **Driver dashboard**: online toggle, today's earnings, live realtime request queue with Accept/Decline.
 
 ---
@@ -255,8 +255,8 @@ keytool -list -v -keystore /path/to/release.keystore -alias release-alias
 
 - Home shows a compact horizontal carousel of six vehicle icons (scooty, bike, auto, mini, sedan, SUV) each with live fare and ETA, drawn as multi-tone axonometric SVG (not stock line icons).
 - Ride search shows the same six in a vertical list with "Fastest" / "AC" pills and seat pips proportional to capacity.
-- Explore has an auto-rotating hero carousel (promo → YMCA verify → group SUV), a 2x2 grid of "Popular on campus" routes, a safety trio (Alarm / Trusted contacts / Share ride), and a refer strip.
+- Explore has an auto-rotating hero carousel (promo → identity verify → group SUV), a 2x2 grid of "Popular on campus" routes, a safety trio (Alarm / Trusted contacts / Share ride), and a refer strip.
 - Live tracking's vehicle marker glides between GPS pings on the UI thread and rotates in the travel direction — no teleport.
 - Verification portal uses your phone camera to capture the doc, sends the image to Gemini 2.0 Flash, and shows extracted name/number/expiry with a confidence dial and authenticity flags in ~15 seconds.
-- DigiLocker fast lane launches the government consent page in an in-app tab; on return, the app auto-marks YMCA members as `admin_approved=true`.
+- DigiLocker fast lane launches the government consent page in an in-app tab; on return, the app auto-marks verified members as `admin_approved=true`.
 - SOS is a full-screen safety screen with a hold-3s disc; when armed it SMSes the emergency backup + user's contact via Twilio, buzzes a siren pattern, and offers Call 112 / WhatsApp share.

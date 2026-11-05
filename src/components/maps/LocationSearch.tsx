@@ -102,8 +102,8 @@ function mergeAndRank(results: GeoSearchResult[][], user: [number, number]): Geo
 }
 
 async function searchPlaces(query: string, userLat?: number, userLng?: number): Promise<GeoSearchResult[]> {
-  const uLat = userLat ?? 28.3762;
-  const uLng = userLng ?? 77.3149;
+  const uLat = userLat ?? 20.5937;
+  const uLng = userLng ?? 78.9629;
   const controller = new AbortController();
   const t = setTimeout(() => controller.abort(), 7000);
   try {
@@ -119,7 +119,7 @@ async function resolveELocCoords(_eLoc: string, name: string, address: string): 
   const q = (address || name || '').trim();
   if (!q) return null;
   try {
-    const r = await searchNominatim(q, 28.3762, 77.3149);
+    const r = await searchNominatim(q, 20.5937, 78.9629);
     if (r.length > 0) return r[0].coordinates;
   } catch {}
   return null;

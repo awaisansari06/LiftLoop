@@ -8,7 +8,7 @@
 
 ## 1. Product Overview
 
-**LiftLoop** is a **university-exclusive carpooling platform** for **J.C. Bose University of Science & Technology, YMCA (Faridabad)**. It connects students and staff who travel the same routes so they can share rides — cutting cost, traffic, and the daily wait for transport. It is **not** a public ride-hailing clone; it is a closed, trust-first campus mobility network governed by the university (via a single admin).
+**LiftLoop** is a **carpooling platform** for **students and staff**. It connects students and staff who travel the same routes so they can share rides — cutting cost, traffic, and the daily wait for transport. It is **not** a public ride-hailing clone; it is a closed, trust-first campus mobility network governed by the university (via a single admin).
 
 **This PRD covers the website only** (the existing repo). The mobile app is specified separately in `APP_PRD.md`; both share one Supabase backend and one design system.
 
@@ -81,7 +81,7 @@ These six components are **provided source** (see build prompt appendix) and mus
 | 3 | **HoverExpand_002** (Skiper53) | **Mobile / narrow** vertical accordion version of #2. | `swiper` (css imports only) | Render #2 at `md+`, #3 below `md` (single responsive gallery component). |
 | 4 | **Skiper31 / ScrollAnimation_002** | **Scroll-linked reveals** for section headings & feature blocks on Landing and marketing sections (character/word/image transforms on scroll). | `lenis` | Wrap the app (or landing route) in `<ReactLenis root>`. **Must honor `prefers-reduced-motion`** (disable transforms). Keep one Lenis instance; don't nest. |
 | 5 | **Skiper67** (VideoPlayer + clip-path popover) | The **logo → intro-video transition** and the site-wide "expand video from its source" pattern (showreel / "see it in motion"). | `media-chrome` | Point at the `/brag`-generated intro (see §5) / existing `public/launch.mp4`. Reuse the clip-path zoom as the canonical way any video opens on the site. |
-| 6 | **Skiper39** (registry: `https://skiper-ui.com/registry/skiper39.json`) | **Hero visual metaphor**: "everyone stuck waiting in road traffic / the crowd" → LiftLoop as the way out. | fetch from registry (shadcn/21st registry install) | Install from the JSON URL, then re-skin to `MASTER.md`; rewrite copy for the JCBUST commute story. |
+| 6 | **Skiper39** (registry: `https://skiper-ui.com/registry/skiper39.json`) | **Hero visual metaphor**: "everyone stuck waiting in road traffic / the crowd" → LiftLoop as the way out. | fetch from registry (shadcn/21st registry install) | Install from the JSON URL, then re-skin to `MASTER.md`; rewrite copy for the community commute story. |
 
 ---
 
@@ -99,7 +99,7 @@ These six components are **provided source** (see build prompt appendix) and mus
 All features are **admin-managed** by the university. Requirements marked **NEW** don't exist yet.
 
 ### 6.1 Identity & roles
-- Google OAuth sign-in, scoped to the JCBUST community.
+- Google OAuth sign-in, for the LiftLoop community.
 - Roles: `student` (rider), `driver`, `both`, `admin`, `pending_admin`.
 - **NEW — Hardcoded sole admin:** `pranjalmishra2409@gmail.com` is the **only** admin. Add a client constant (replacing reliance on `VITE_ADMIN_EMAILS`) **AND enforce server-side** via Supabase **RLS policies / edge-function checks** — client gating alone is not security. Any other user selecting "admin" becomes `pending_admin` and is never elevated.
 

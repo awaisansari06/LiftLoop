@@ -73,7 +73,7 @@ index f1e5d22..6e84235 100644
 --- a/src/pages/Landing.tsx
 +++ b/src/pages/Landing.tsx
 @@ -148,7 +148,7 @@ export default function Landing() {
-                 <span style={{ fontSize:13, color:T.gold, fontWeight:600 }}>JC Bose University (YMCA), Faridabad</span>
+                 <span style={{ fontSize:13, color:T.gold, fontWeight:600 }}>LiftLoop community</span>
                </motion.div>
  
 -              <h1 style={{ fontSize:'clamp(36px,5vw,56px)', fontWeight:800, color:'white', lineHeight:1.1,

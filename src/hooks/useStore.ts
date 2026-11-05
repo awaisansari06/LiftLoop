@@ -42,6 +42,18 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   logout: async () => {
+    // A shared browser must stop receiving this account's pickup alerts at logout.
+    if(typeof navigator!=='undefined'&&'serviceWorker' in navigator) {
+      try {
+        const registration=await navigator.serviceWorker.getRegistration('/');
+        const subscription=await registration?.pushManager.getSubscription();
+        if(subscription) {
+          const {data:{session}}=await supabase.auth.getSession();
+          if(session)await fetch('/api/push',{method:'DELETE',headers:{'Content-Type':'application/json',Authorization:`Bearer ${session.access_token}`},body:JSON.stringify({endpoint:subscription.endpoint}),signal:AbortSignal.timeout(5000)}).catch(()=>{});
+          await subscription.unsubscribe();
+        }
+      }catch{/* Sign-out must still work when push is unavailable. */}
+    }
     await supabase.auth.signOut();
     set({ user: null, selectedRole: null });
   },
@@ -67,17 +79,17 @@ export const useNotificationStore = create<NotificationState>((set) => ({
     }),
 
   addNotification: (notification) =>
-    set((state) => ({
+    set((state) => state.notifications.some(n=>n.id===notification.id)?state:{
       notifications: [notification, ...state.notifications],
-      unreadCount: state.unreadCount + 1,
-    })),
+      unreadCount: state.unreadCount + (notification.read?0:1),
+    }),
 
   markRead: (id) =>
     set((state) => ({
       notifications: state.notifications.map((n) =>
         n.id === id ? { ...n, read: true } : n
       ),
-      unreadCount: Math.max(0, state.unreadCount - 1),
+      unreadCount: Math.max(0, state.unreadCount - (state.notifications.some(n=>n.id===id&&!n.read)?1:0)),
     })),
 
   markAllRead: () =>

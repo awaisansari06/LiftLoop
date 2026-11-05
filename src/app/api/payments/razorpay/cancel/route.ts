@@ -1,5 +1,6 @@
 import {paymentDatabase,paymentUser} from '@/lib/server/payments';
 import {razorpayRequest} from '@/lib/server/razorpay';
+import {dispatchJourneyPush} from '@/lib/server/journey-push';
 export async function POST(request:Request) {
  const user=await paymentUser(request);
  if(!user)return Response.json({error:'Sign in first'},{status:401});
@@ -26,6 +27,7 @@ export async function POST(request:Request) {
   }
   const {error:finalizeError}=await db.rpc('finalize_test_refund',{booking:booking.id});
   if(finalizeError)throw new Error('Refund processed. Retry cancellation to update your booking; do not pay again.');
+  await dispatchJourneyPush(booking.ride_id).catch(()=>{});
   return Response.json({status:'refunded'});
  }catch(error){return Response.json({error:error instanceof Error?error.message:'Refund could not complete. Retry safely.'},{status:409});}
 }

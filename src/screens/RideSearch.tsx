@@ -228,7 +228,7 @@ export default function RideSearch() {
       {/* sidebar */}
       <aside className="w-full shrink-0 space-y-5 overflow-y-auto border-border p-5 md:w-[440px] md:border-r">
         <div>
-          <Eyebrow className="mb-2">User · JC Bose UST</Eyebrow>
+          <Eyebrow className="mb-2">User · LiftLoop</Eyebrow>
           <h1 className="font-display text-3xl font-extrabold tracking-tight text-foreground">
             Find a <span className="text-accent">ride</span>
           </h1>

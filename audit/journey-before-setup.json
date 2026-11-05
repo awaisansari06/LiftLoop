@@ -1,0 +1,36 @@
+{
+  "project": "bjgpbpkqqhxiqpebjumt",
+  "bookings": 3,
+  "policies": [
+    {
+      "cmd": "INSERT",
+      "qual": null,
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "reviews",
+      "permissive": "PERMISSIVE",
+      "policyname": "review_write",
+      "schemaname": "public",
+      "with_check": "((reviewer_id = ( SELECT auth.uid() AS uid)) AND (reviewer_id <> reviewee_id) AND private.ride_member(ride_id) AND (EXISTS ( SELECT 1\n FROM rides\n WHERE ((rides.id = reviews.ride_id) AND (rides.status = 'completed'::text)))))"
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "private.ride_member(ride_id)",
+      "roles": [
+        "authenticated"
+      ],
+      "tablename": "live_locations",
+      "permissive": "PERMISSIVE",
+      "policyname": "participant_location",
+      "schemaname": "public",
+      "with_check": null
+    }
+  ],
+  "functions": [
+    "CREATE OR REPLACE FUNCTION private.cancel_simulated_booking(p_booking uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\ndeclare booking public.bookings%rowtype; trip_id uuid;\r\nbegin\r\n if auth.uid() is null then raise exception 'Sign in first' using errcode='42501'; end if;\r\n if not exists(select 1 from private.payment_configuration where id and simulation_enabled) then raise exception 'Simulation disabled' using errcode='42501'; end if;\r\n select ride_id into trip_id from public.bookings where id=p_booking and rider_id=auth.uid() and payment_provider='simulated';\r\n if trip_id is null then raise exception 'Simulated booking not found'; end if;\r\n perform 1 from public.rides where id=trip_id for update;\r\n select * into booking from public.bookings where id=p_booking for update;\r\n if booking.status='cancelled' then return booking.id; end if;\r\n if booking.status<>'confirmed' then raise exception 'Booking cannot be cancelled'; end if;\r\n update public.bookings set status='cancelled',payment_status='refunded' where id=p_booking;\r\n update public.rides set seats_available=seats_available+booking.seats_booked where id=trip_id;\r\n return p_booking;\r\nend $function$\n",
+    "CREATE OR REPLACE FUNCTION private.transition_ride(trip uuid, next_status text)\n RETURNS rides\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\ndeclare current_trip public.rides;\r\nbegin\r\n select * into current_trip from public.rides where id=trip for update;\r\n if auth.uid() is null or current_trip.id is null or (current_trip.driver_id<>auth.uid() and not private.is_approved_admin()) then raise exception 'Ride access denied' using errcode='42501'; end if;\r\n if not ((current_trip.status='active' and next_status in ('in_progress','cancelled')) or (current_trip.status='in_progress' and next_status in ('completed','cancelled'))) then raise exception 'Invalid ride transition'; end if;\r\n if next_status='cancelled' and exists(select 1 from public.bookings where ride_id=trip and payment_status='paid' and status<>'cancelled') then raise exception 'Refund paid bookings before cancelling this ride'; end if;\r\n update public.rides set status=next_status where id=trip returning * into current_trip;\r\n if next_status='completed' then update public.bookings set status='completed' where ride_id=trip and status='confirmed'; end if;\r\n if next_status='cancelled' then update public.bookings set status='cancelled' where ride_id=trip and status in ('pending','confirmed'); end if;\r\n return current_trip;\r\nend $function$\n"
+  ],
+  "paid_total": 190,
+  "captured_at": "2026-11-05T14:05:39.058875+00:00"
+}

@@ -1,4 +1,5 @@
 import {resolveStoredFiles} from './storage';
+import {journeyAction} from './journey-api';
 import { supabase } from './supabase';
 import type { Ride, Booking, Review, Notification, DriverVerification, SOSAlert, GeoLocation, Message } from '../types';
 
@@ -68,9 +69,10 @@ export async function getRideById(id: string): Promise<Ride | null> {
 
 export async function updateRide(id: string, updates: Partial<Ride>): Promise<Ride> {
   if (updates.status) {
-    const {data, error} = await supabase.rpc('transition_ride', {trip: id, next_status: updates.status});
-    if (error) throw error;
-    return data as Ride;
+    await journeyAction(id,({in_progress:'start',completed:'finish',cancelled:'cancel'} as Record<string,string>)[updates.status]||'invalid');
+    const ride=await getRideById(id);
+    if(!ride)throw new Error('Ride updated, but could not reload it.');
+    return ride;
   }
   const { data, error } = await supabase
     .from('rides')
@@ -121,9 +123,14 @@ export async function createBooking(booking: {
 export async function getBookings(userId: string): Promise<Booking[]> {
   const { data, error } = await supabase
     .from('bookings')
-    .select('*, ride:rides(*, driver:users!driver_id(*))')
+    .select('*, ride:rides(*, driver:users!driver_id(*)), journey:passenger_journeys(*)')
     .eq('rider_id', userId)
     .order('created_at', { ascending: false });
+  if (error?.code==='PGRST200') {
+    const legacy=await supabase.from('bookings').select('*, ride:rides(*, driver:users!driver_id(*))').eq('rider_id',userId).order('created_at',{ascending:false});
+    if(legacy.error)throw legacy.error;
+    return await resolveStoredFiles(legacy.data||[]);
+  }
   if (error) throw error;
   return await resolveStoredFiles(data || []);
 }
@@ -179,11 +186,13 @@ export async function getNotifications(userId: string): Promise<Notification[]> 
 }
 
 export async function markNotificationRead(id: string): Promise<void> {
-  await supabase.from('notifications').update({ read: true }).eq('id', id);
+  const {error}=await supabase.from('notifications').update({ read: true }).eq('id', id);
+  if(error)throw error;
 }
 
 export async function markAllNotificationsRead(userId: string): Promise<void> {
-  await supabase.from('notifications').update({ read: true }).eq('user_id', userId).eq('read', false);
+  const {error}=await supabase.from('notifications').update({ read: true }).eq('user_id', userId).eq('read', false);
+  if(error)throw error;
 }
 
 // ============= DRIVER VERIFICATION =============
@@ -265,7 +274,7 @@ export async function getLiveLocation(rideId: string) {
 export async function createSOSAlert(alert: {
   user_id: string;
   ride_id: string;
-  location: GeoLocation;
+  location: GeoLocation | null;
   message?: string;
 }): Promise<SOSAlert> {
   const { data, error } = await supabase

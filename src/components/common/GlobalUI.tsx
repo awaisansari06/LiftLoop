@@ -193,7 +193,7 @@ export function CommandPalette() {
             </div>
             <div className="flex items-center justify-between border-t border-border px-4 py-2.5 text-[10px] text-muted-foreground">
               <span>↑ ↓ navigate · ↵ select · esc close</span>
-              <span>LiftLoop · JC Bose UST</span>
+              <span>LiftLoop</span>
             </div>
           </motion.div>
         </motion.div>

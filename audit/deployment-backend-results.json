@@ -1,0 +1,189 @@
+{
+  "checkedAt": "2026-11-05T14:08:21.932Z",
+  "environment": {
+    "NEXT_PUBLIC_SUPABASE_URL": true,
+    "NEXT_PUBLIC_SITE_URL": true,
+    "NEXT_PUBLIC_MAPPLS_API_KEY": true,
+    "ORS_API_KEY": true,
+    "SUPABASE_SECRET_KEY": true,
+    "RAZORPAY_KEY_ID": true,
+    "RAZORPAY_KEY_SECRET": true,
+    "RAZORPAY_WEBHOOK_SECRET": false,
+    "NEXT_PUBLIC_VAPID_PUBLIC_KEY": true,
+    "VAPID_PRIVATE_KEY": true,
+    "VAPID_SUBJECT": true,
+    "JOURNEY_DISPATCH_SECRET": true,
+    "publicSupabaseKey": true
+  },
+  "tables": [
+    {
+      "table": "users",
+      "serverError": null,
+      "anonymousError": null,
+      "anonymousVisibleRows": 0
+    },
+    {
+      "table": "rides",
+      "serverError": null,
+      "anonymousError": null,
+      "anonymousVisibleRows": 1
+    },
+    {
+      "table": "bookings",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "reviews",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "notifications",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "driver_verification",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "live_locations",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "sos_alerts",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "messages",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "banned_users",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "admin_logs",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "saved_routes",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "announcements",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "ride_reports",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "support_messages",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "passenger_journeys",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "push_subscriptions",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    },
+    {
+      "table": "journey_push_outbox",
+      "serverError": null,
+      "anonymousError": "42501",
+      "anonymousVisibleRows": null
+    }
+  ],
+  "buckets": [
+    {
+      "name": "profile-photos",
+      "public": false,
+      "file_size_limit": 10485760,
+      "allowed_mime_types": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "application/pdf"
+      ]
+    },
+    {
+      "name": "driver-documents",
+      "public": false,
+      "file_size_limit": 10485760,
+      "allowed_mime_types": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "application/pdf"
+      ]
+    },
+    {
+      "name": "attachments",
+      "public": false,
+      "file_size_limit": 10485760,
+      "allowed_mime_types": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "application/pdf"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "journey_snapshot",
+      "exposedToServerRole": true
+    },
+    {
+      "name": "journey_action",
+      "exposedToServerRole": true
+    },
+    {
+      "name": "claim_journey_push",
+      "exposedToServerRole": true
+    },
+    {
+      "name": "fulfill_razorpay_test_booking",
+      "exposedToServerRole": true
+    },
+    {
+      "name": "finalize_test_refund",
+      "exposedToServerRole": true
+    }
+  ],
+  "paymentMode": "razorpay",
+  "siteUrlUsesLocalhost": true,
+  "bucketError": null,
+  "schemaStatus": 200
+}

@@ -22,6 +22,7 @@ export default function Chat() {
   const [file, setFile] = useState<File | null>(null);
   const [sending, setSending] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [sendError,setSendError]=useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -47,10 +48,12 @@ export default function Chat() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!user || !rideId) return;
-    if (!text.trim() && !file) return;
+  const handleSend = async (quick?:string) => {
+    if (!user || !rideId || sending) return;
+    const content=quick||text.trim();
+    if (!content && !file) return;
     setSending(true);
+    setSendError('');
     try {
       let attachmentUrl;
       if (file) {
@@ -64,12 +67,13 @@ export default function Chat() {
         }
         setUploading(false);
       }
-      const msg = await sendMessage({ ride_id: rideId, sender_id: user.id, message: text.trim(), attachment_url: attachmentUrl });
+      const msg = await sendMessage({ ride_id: rideId, sender_id: user.id, message: content, attachment_url: attachmentUrl });
       setMessages((prev) => [...prev, msg]);
       setText("");
       setFile(null);
     } catch (e) {
       console.error(e);
+      setSendError('Message could not be sent. Please retry.');
       setUploading(false);
     } finally {
       setSending(false);
@@ -154,6 +158,10 @@ export default function Chat() {
             <p className="text-xs text-muted-foreground">Image attached</p>
           </div>
         )}
+        <div className="flex flex-wrap gap-2 border-t border-border bg-card p-3">
+          {['I’m at the gate','Please wait 2 minutes','I can’t find you'].map(message=><button key={message} disabled={sending} onClick={()=>void handleSend(message)} className="rounded-full border border-border px-3 py-1.5 text-xs">{message}</button>)}
+          {sendError&&<p role="alert" className="w-full text-xs text-danger">{sendError}</p>}
+        </div>
         <div className="flex items-center gap-2 border-t border-border bg-background/95 p-3 backdrop-blur">
           <input
             type="file"
@@ -186,7 +194,7 @@ export default function Chat() {
             wrapperClassName="flex-1"
             aria-label="Chat message"
           />
-          <Button size="md" onClick={handleSend} disabled={(!text.trim() && !file) || sending || uploading} loading={sending || uploading} aria-label="Send" className="!px-3.5">
+          <Button size="md" onClick={()=>void handleSend()} disabled={(!text.trim() && !file) || sending || uploading} loading={sending || uploading} aria-label="Send" className="!px-3.5">
             {!(sending || uploading) && <Send className="size-4" />}
           </Button>
         </div>

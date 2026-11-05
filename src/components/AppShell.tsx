@@ -17,6 +17,7 @@ import { KineticTextLoader } from '@/components/ui/kinetic-loader';
 
 
 import { cleanupPastRides } from '@/lib/api';
+import {RideLocationSharing} from './RideLocationSharing';
 function AnimatedPage({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
@@ -54,11 +55,11 @@ export default function AppShell({children}: {children: React.ReactNode}) {
       <MobileBottomNav />
       <ToastContainer />
       <Toaster />
-      <ErrorBoundary resetKey={location.pathname}>
+      <RideLocationSharing><ErrorBoundary resetKey={location.pathname}>
       <AnimatePresence mode="wait">
         <AnimatedPage key={location.pathname}>{children}</AnimatedPage>
       </AnimatePresence>
-      </ErrorBoundary>
+      </ErrorBoundary></RideLocationSharing>
     </div>
   );
 }

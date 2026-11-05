@@ -74,7 +74,6 @@ export default function ServiceDashboard() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [sendingChat, setSendingChat] = useState(false);
   const [bookingRequests, setBookingRequests] = useState<Booking[]>([]);
-  const [changingRide, setChangingRide] = useState<string | null>(null);
   const [deletingRide, setDeletingRide] = useState<string | null>(null);
   const [processingBooking, setProcessingBooking] = useState<string | null>(null);
   const [isSOSOpen, setIsSOSOpen] = useState(false);
@@ -313,7 +312,7 @@ export default function ServiceDashboard() {
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
                   <span className="size-1.5 rounded-full bg-success" />
                   <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">
-                    Service portal · JC Bose UST
+                    Service portal · LiftLoop
                   </span>
                 </div>
                 <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
@@ -488,13 +487,7 @@ export default function ServiceDashboard() {
                       </span>
                       <div className="flex flex-wrap items-center justify-end gap-2">
                         <span className="font-mono text-lg font-bold text-foreground">₹{ride.price_per_seat}</span>
-                        <Button size="sm" loading={changingRide===ride.id} disabled={changingRide!==null} onClick={async () => {
-                          if(ride.status==='in_progress' && !window.confirm('Finish this ride and mark its confirmed bookings completed?'))return;
-                          setChangingRide(ride.id);
-                          try {await updateRide(ride.id,{status:ride.status==='active'?'in_progress':'completed'});await loadDashboard();if(ride.status==='active')navigate(`/tracking/${ride.id}`);}
-                          catch(error){window.alert(error instanceof Error?error.message:'Could not update ride');}
-                          finally{setChangingRide(null);}
-                        }}>{ride.status==='active'?'Start ride':'Finish ride'}</Button>
+                        <Button size="sm" onClick={()=>navigate(`/tracking/${ride.id}`)}>{ride.status==='active'?'Prepare pickups':'Manage stops'}</Button>
                         <Link to={`/tracking/${ride.id}`} className={buttonVariants({ variant: "primary", size: "sm" })}>
                           <MapPin className="size-3.5" /> Track
                         </Link>

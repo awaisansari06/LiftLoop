@@ -1,7 +1,7 @@
 /**
  * Role model (display layer).
  *
- * LiftLoop is a university carpool: anyone from JC Bose UST can be a **User**
+ * LiftLoop is a university carpool: any community member can be a **User**
  * (take rides) or a **Service** (offer rides). The role is chosen per-login at
  * the panel — the same email can sign in as either. **Admin** is the sole
  * university operator.

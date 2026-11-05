@@ -8,7 +8,7 @@ import { Crosshair, MapPin } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-const JCB_UST: [number, number] = [28.3762, 77.3149];
+const DEFAULT_CENTER: [number, number] = [20.5937, 78.9629];
 
 const pickupIcon = L.divIcon({
   className: "",
@@ -34,8 +34,8 @@ function FlyTo({ target, zoom }: { target: [number, number]; zoom: number }) {
 /** Light, editorial live map. Sized entirely by the parent (built to run
  *  full-bleed under the hero headline). */
 export function LiveMap({ className }: { className?: string }) {
-  const [center, setCenter] = useState<[number, number]>(JCB_UST);
-  const [zoom, setZoom] = useState(15);
+  const [center, setCenter] = useState<[number, number]>(DEFAULT_CENTER);
+  const [zoom, setZoom] = useState(5);
   const [status, setStatus] = useState<"idle" | "asking" | "live" | "denied">("idle");
 
   const requestLive = () => {
@@ -52,13 +52,13 @@ export function LiveMap({ className }: { className?: string }) {
     );
   };
 
-  const label = status === "live" ? "You" : "JC Bose UST";
+  const label = status === "live" ? "You" : "Explore rides";
   const sub =
     status === "live"
       ? "Live location"
       : status === "denied"
-        ? "Location off — campus view"
-        : "Campus view";
+        ? "Location off — map overview"
+        : "Map overview";
 
   return (
     <div className={cn("relative overflow-hidden bg-[#ECE6DC]", className)}>
@@ -120,7 +120,7 @@ export function LiveMap({ className }: { className?: string }) {
       )}
 
       <div className="absolute bottom-6 left-4 hidden items-center gap-2 rounded-full bg-navy/85 px-3.5 py-2 font-mono text-[11px] uppercase tracking-widest text-white/85 backdrop-blur sm:left-8 md:inline-flex">
-        <MapPin className="size-3.5 text-accent" /> JC Bose UST · Faridabad
+        <MapPin className="size-3.5 text-accent" /> {status === "live" ? "Your location" : "Find your next shared ride"}
       </div>
     </div>
   );

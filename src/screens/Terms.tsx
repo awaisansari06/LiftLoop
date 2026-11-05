@@ -6,7 +6,7 @@ export default function Terms() {
       title="Terms of Service"
       updated="May 2026"
       sections={[
-        { t: "1. Eligibility", body: "LiftLoop is exclusively for students, faculty, and staff of JC Bose University of Science & Technology, YMCA, Faridabad. You must have a valid @jcboseust.ac.in email to register." },
+        { t: "1. Eligibility", body: "LiftLoop connects students, faculty, and staff for shared rides. Sign in with a valid Google account and complete the required profile and verification steps to participate." },
         { t: "2. Account responsibilities", body: "You are responsible for maintaining the confidentiality of your account. Sharing accounts or credentials is prohibited. Report unauthorized access immediately." },
         { t: "3. Offering rides", body: "Members offering rides must hold a valid driving licence, vehicle registration, and insurance. All documents must be verified through our platform before offering rides." },
         { t: "4. Ride conduct", body: "Everyone must maintain respectful behaviour during rides. Harassment, discrimination, or any misconduct will result in immediate account suspension." },

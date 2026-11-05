@@ -300,7 +300,7 @@ transition={{ duration: 0.2 }}
 - **Do** use generous whitespace — if it feels sparse, it's probably right
 - **Do** use the beige accent to add warmth to otherwise cold layouts
 - **Do** ensure every interactive element has a visible focus state
-- **Do** use real content in designs: "YMCA Gate → Faridabad Station" not "Location A → Location B"
+- **Do** use real content in designs: "Campus Gate → Central Station" not "Location A → Location B"
 - **Do** make the SOS button always visible and instantly accessible
 
 ### Don't

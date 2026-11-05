@@ -6,7 +6,7 @@
 
 ## Role & mission
 
-You are a senior frontend engineer rebuilding the **LiftLoop** website UI. LiftLoop is a university-exclusive carpooling platform for **J.C. Bose University of Science & Technology, YMCA (Faridabad)**. The current UI is inline-style, card-and-text heavy, and visually inconsistent ("AI slop"). Replace it with **one coherent, motion-rich, editorial design system**, weave in the 6 provided components everywhere, and implement **true route/direction carpool matching**. Do **not** break the Supabase backend, `src/lib/api.ts` contracts, or any of the 20 routes.
+You are a senior frontend engineer rebuilding the **LiftLoop** website UI. LiftLoop is a carpooling platform for **students and staff**. The current UI is inline-style, card-and-text heavy, and visually inconsistent ("AI slop"). Replace it with **one coherent, motion-rich, editorial design system**, weave in the 6 provided components everywhere, and implement **true route/direction carpool matching**. Do **not** break the Supabase backend, `src/lib/api.ts` contracts, or any of the 20 routes.
 
 **Stack (confirmed):** Vite + React 19 + TS SPA, Tailwind v4 (`@theme` in `src/index.css`, no `tailwind.config`), framer-motion 12.38, react-router v7, zustand, react-hook-form + zod, recharts, Leaflet + Mappls, Razorpay, Supabase. Read the PRD's §2 audit before touching anything.
 

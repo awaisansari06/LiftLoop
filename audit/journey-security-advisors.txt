@@ -1,0 +1,51 @@
+- link:
+  - /url: "#main"
+  - generic: Skip to content
+- navigation:
+  - button:
+    - generic: A
+    - generic: LiftLoop
+    - generic: main
+  - button:
+  - button:
+  - button:
+- navigation:
+  - button:
+  - button:
+    - generic: Help
+  - button:
+    - generic: Advisor Center
+  - button:
+    - generic: SQL Editor
+  - button:
+    - generic: AI Assistant
+  - button:
+  - button:
+- main:
+  - main:
+    - heading [level=3]: Create a table
+    - paragraph: Design and create a new database table
+    - heading [level=2]: Recent items
+    - paragraph: No recent items yet
+    - paragraph: Items will appear here as you browse through your project
+- region "Notifications alt+T"
+- dialog:
+  - button "Category:1":
+    - generic: Category:1
+  - button "Status":
+    - generic: Status
+  - button "Severity":
+    - generic: Severity
+  - button:
+  - button "Leaked Password Protection Disabled Auth":
+    - generic: Leaked Password Protection Disabled
+    - generic: Auth
+  - button "RLS Enabled No Policy private.boarding_pins":
+    - generic: RLS Enabled No Policy
+    - generic: private.boarding_pins
+  - button "RLS Enabled No Policy public.journey_push_outbox":
+    - generic: RLS Enabled No Policy
+    - generic: public.journey_push_outbox
+  - button "RLS Enabled No Policy public.push_subscriptions":
+    - generic: RLS Enabled No Policy
+    - generic: public.push_subscriptions

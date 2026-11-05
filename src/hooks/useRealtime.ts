@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useNotificationStore } from './useStore';
 import type { Notification, Message } from '../types';
+import toast from 'react-hot-toast';
 
 export function useRealtimeNotifications(userId: string | undefined) {
   const { addNotification } = useNotificationStore();
@@ -9,7 +10,12 @@ export function useRealtimeNotifications(userId: string | undefined) {
   useEffect(() => {
     useNotificationStore.getState().setNotifications([]);
     if (!userId) return;
-    void supabase.from('notifications').select('*').eq('user_id',userId).order('created_at',{ascending:false}).then(({data,error}) => {if(!error && data)useNotificationStore.getState().setNotifications(data);});
+    let cancelled=false;
+    const refresh=()=>{void supabase.from('notifications').select('*').eq('user_id',userId).order('created_at',{ascending:false}).limit(50).then(({data,error}) => {if(!cancelled&&!error&&data)useNotificationStore.getState().setNotifications(data);});};
+    refresh();
+    const timer=setInterval(refresh,15000);
+    const onVisible=()=>{if(document.visibilityState==='visible')refresh();};
+    document.addEventListener('visibilitychange',onVisible);
 
     const channel = supabase
       .channel(`user:${userId}:notifications`)
@@ -23,11 +29,14 @@ export function useRealtimeNotifications(userId: string | undefined) {
         },
         (payload) => {
           addNotification(payload.new as Notification);
+          const notification=payload.new as Notification;
+          if(notification.type?.startsWith('journey:'))toast(notification.title,{id:notification.id,duration:6000});
         }
       )
       .subscribe();
 
     return () => {
+      cancelled=true;clearInterval(timer);document.removeEventListener('visibilitychange',onVisible);
       supabase.removeChannel(channel);
     };
   }, [userId, addNotification]);

@@ -14,8 +14,7 @@
 
 ## 1. Product & Design Principles
 
-**LiftLoop** is a university-exclusive carpooling network for J.C. Bose University of Science
-& Technology, YMCA (Faridabad). It is a **closed, trust-first campus mobility community** — not a
+**LiftLoop** is a carpooling network for students and staff. It is a **closed, trust-first campus mobility community** — not a
 public ride-hailing clone. The design must feel **safe, premium, editorial, and in motion** — the
 opposite of the current inline-style "card + text" sprawl.
 

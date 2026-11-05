@@ -205,7 +205,7 @@ export default function UserDashboard() {
         b
           .filter((booking: Booking) => {
             const ride = (booking as unknown as { ride?: Ride }).ride;
-            return !ride || new Date(ride.departure_time) > now;
+            return ['pending','confirmed'].includes(booking.status)&&booking.journey?.status!=='no_show'&&(!ride||ride.status==='in_progress'||new Date(ride.departure_time)>now);
           })
           .slice(0, 3),
       );
@@ -265,7 +265,7 @@ export default function UserDashboard() {
 
   const historyBookings = allBookings.filter((b) => {
     const ride = (b as unknown as { ride?: Ride }).ride;
-    return b.status === "completed" || (ride ? new Date(ride.departure_time) < time : false);
+    return b.status === "completed" || b.status==='cancelled' || b.journey?.status==='no_show';
   });
 
   // Data collections shown as folders (real records only — never stock images).
@@ -369,7 +369,7 @@ export default function UserDashboard() {
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
                   <span className="size-1.5 rounded-full bg-accent" />
                   <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">
-                    User portal · JC Bose UST
+                    User portal · LiftLoop
                   </span>
                 </div>
                 <p className="mt-4 text-sm text-white/60">{greeting},</p>
@@ -549,7 +549,7 @@ export default function UserDashboard() {
                     >
                       <span className="flex items-center gap-2 text-sm font-medium text-foreground">
                         <MapPin className="size-4 text-muted-foreground" />
-                        {t.from} → {t.to.replace("JC Bose UST", "Campus")}
+                        {t.from} → {t.to}
                       </span>
                       <span className="font-mono text-xs text-muted-foreground">{t.count}×</span>
                     </button>
@@ -568,7 +568,7 @@ export default function UserDashboard() {
                 <h3 className="flex items-center gap-2 font-display font-bold text-foreground">
                   <MapPin className="size-4 text-accent" /> Live campus map
                 </h3>
-                <span className="text-xs uppercase tracking-wide text-muted-foreground">Faridabad</span>
+                <span className="text-xs uppercase tracking-wide text-muted-foreground">Your area</span>
               </div>
               <LiveMap className="h-72 w-full border-t border-border" />
             </Panel>

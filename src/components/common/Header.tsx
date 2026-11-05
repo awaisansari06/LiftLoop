@@ -17,6 +17,7 @@ import {
 
 import { useAuthStore, useNotificationStore } from "../../hooks/useStore";
 import Logo from "./Logo";
+import NotificationPanel from './NotificationPanel';
 import { cn } from "@/lib/utils";
 import type { BadgeTone } from "@/components/ui/primitives";
 import { roleLabel } from "@/lib/roles";
@@ -42,6 +43,7 @@ export default function Header() {
   const { user, logout } = useAuthStore();
   const { unreadCount } = useNotificationStore();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [notificationsOpen,setNotificationsOpen]=useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [avatarBroken, setAvatarBroken] = useState(false);
   useEffect(() => {
@@ -123,6 +125,7 @@ export default function Header() {
             <button
               type="button"
               aria-label="Notifications"
+                onClick={()=>setNotificationsOpen(open=>!open)}
               className="relative grid size-10 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <Bell className="size-5" />
@@ -155,6 +158,7 @@ export default function Header() {
                 )}
                 <ChevronDown className="size-3.5 text-muted-foreground" />
               </button>
+              {notificationsOpen&&<NotificationPanel onClose={()=>setNotificationsOpen(false)}/>}
 
               <AnimatePresence>
                 {profileOpen && (

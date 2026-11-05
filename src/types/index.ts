@@ -54,6 +54,7 @@ export interface Ride {
 }
 
 export interface Booking {
+  journey?: import('../lib/journey').PassengerJourney | null;
   payment_provider?: 'stripe_test' | 'simulated' | 'razorpay_test';
   id: string;
   ride_id: string;

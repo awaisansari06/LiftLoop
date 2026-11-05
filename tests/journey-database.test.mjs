@@ -1,0 +1,81 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {PGlite} from '@electric-sql/pglite';
+
+test('Postgres enforces passenger isolation, PIN boarding, stop order and individual completion',async()=>{
+ const db=new PGlite();
+ try {
+ await db.exec(`create role anon;create role authenticated;create role service_role bypassrls;create schema auth;
+ create table auth.users(id uuid primary key,email text,raw_user_meta_data jsonb default '{}');
+ create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
+ create function auth.jwt() returns jsonb language sql stable as $$select '{}'::jsonb$$;
+ create function auth.role() returns text language sql stable as $$select current_user::text$$;
+ grant usage on schema auth to authenticated,anon,service_role;grant execute on all functions in schema auth to authenticated,anon,service_role;`);
+ for(const file of ['migrations/202611050001_foundation.sql','admin-analytics-stripe-setup.sql','simulated-checkout-setup.sql','razorpay-test-setup.sql','feature-repair-setup.sql','refund-repair-setup.sql','passenger-journey-setup.sql'])await db.exec(readFileSync(`supabase/${file}`,'utf8'));
+ const ids=['00000000-0000-4000-8000-000000000001','00000000-0000-4000-8000-000000000002','00000000-0000-4000-8000-000000000003','00000000-0000-4000-8000-000000000004'];
+ for(let i=0;i<ids.length;i++){await db.query(`insert into auth.users(id,email) values($1,$2)`,[ids[i],`test${i}@example.test`]);await db.query(`insert into public.users(id,email,full_name,user_type) values($1,$2,$3,$4)`,[ids[i],`test${i}@example.test`,`Person ${i}`,i===0?'driver':'student']);}
+ const trip=(await db.query(`insert into public.rides(driver_id,from_location,to_location,departure_time,seats_available,price_per_seat) values($1,'{"lat":28,"lng":77}','{"lat":29,"lng":78}',now()+interval '1 day',3,100) returning id`,[ids[0]])).rows[0].id;
+ const bookings=[];
+ for(const id of ids.slice(1,3))bookings.push((await db.query(`insert into public.bookings(ride_id,rider_id,seats_booked,total_price,status,payment_status,payment_provider) values($1,$2,1,100,'confirmed','paid','razorpay_test') returning id`,[trip,id])).rows[0].id);
+ const pins=(await db.query('select * from private.boarding_pins order by booking_id')).rows;
+ const asUser=async id=>{await db.exec('reset role');await db.query(`select set_config('request.jwt.claim.sub',$1,false)`,[id]);await db.exec('set role authenticated');};
+ const act=(action,booking=null,payload={})=>db.query('select public.journey_action($1,$2,$3,$4) as result',[trip,action,booking,JSON.stringify(payload)]);
+ await asUser(ids[1]);
+ let snapshot=(await db.query('select public.journey_snapshot($1) as data',[trip])).rows[0].data;
+ assert.equal(snapshot.passengers.length,1);assert.equal(snapshot.passengers[0].rider_id,ids[1]);assert.equal(snapshot.pin.length,4);
+ await assert.rejects(db.query('select * from private.boarding_pins'),/permission denied/);
+ await assert.rejects(act('start'),/denied/);
+ await act('ready',bookings[0]);await act('ready',bookings[0]);
+ assert.equal((await db.query('select count(*)::int as count from public.passenger_journeys')).rows[0].count,1);
+ await asUser(ids[3]);assert.equal((await db.query('select * from public.passenger_journeys')).rows.length,0);await assert.rejects(db.query('select public.journey_snapshot($1)',[trip]),/denied/);
+ await asUser(ids[0]);
+ snapshot=(await db.query('select public.journey_snapshot($1) as data',[trip])).rows[0].data;assert.equal(snapshot.pin,null);assert.equal(snapshot.passengers.length,2);
+ await act('start');await assert.rejects(act('finish'),/Resolve all/);
+ await assert.rejects(act('arrive',bookings[1]),/next passenger/);
+ await assert.rejects(act('board',bookings[0],{pin:pins.find(p=>p.booking_id===bookings[0]).pin}),/arrival/);
+ await act('arrive',bookings[0]);await assert.rejects(act('no_show',bookings[0]),/5 minutes/);
+ let result=await act('board',bookings[0],{pin:'invalid'});assert.match(result.rows[0].result.error,/Incorrect/);
+ await act('board',bookings[0],{pin:pins.find(p=>p.booking_id===bookings[0]).pin});
+ await assert.rejects(act('dropoff',bookings[0]),/next passenger/);
+ await act('arrive',bookings[1]);await act('board',bookings[1],{pin:pins.find(p=>p.booking_id===bookings[1]).pin});
+ await act('dropoff',bookings[0]);
+ assert.equal((await db.query('select status from public.bookings where id=$1',[bookings[0]])).rows[0].status,'completed');
+ assert.equal((await db.query('select status from public.bookings where id=$1',[bookings[1]])).rows[0].status,'confirmed');
+ await asUser(ids[1]);await db.query('insert into public.reviews(ride_id,reviewer_id,reviewee_id,rating) values($1,$2,$3,5)',[trip,ids[1],ids[0]]);
+ await asUser(ids[0]);await assert.rejects(db.query(`update public.rides set status='completed' where id=$1`,[trip]),/journey controls/);
+ await act('dropoff',bookings[1]);await act('finish');
+ await db.exec('reset role');
+ assert.equal((await db.query('select status from public.rides where id=$1',[trip])).rows[0].status,'completed');
+ assert.ok((await db.query('select * from public.journey_push_outbox')).rows.length>=8);
+ // Exercise another journey's failure cases and missed-pickup history.
+ await db.exec('update private.payment_configuration set simulation_enabled=true');
+ const secondTrip=(await db.query(`insert into public.rides(driver_id,from_location,to_location,departure_time,seats_available,price_per_seat) values($1,'{"lat":28,"lng":77}','{"lat":29,"lng":78}',now()+interval '1 day',3,100) returning id`,[ids[0]])).rows[0].id;
+ const secondBooking=(await db.query(`insert into public.bookings(ride_id,rider_id,seats_booked,total_price,status,payment_status,payment_provider) values($1,$2,1,100,'confirmed','paid','simulated') returning id`,[secondTrip,ids[1]])).rows[0].id;
+ const secondAction=(action,payload={})=>db.query('select public.journey_action($1,$2,$3,$4) as result',[secondTrip,action,secondBooking,JSON.stringify(payload)]);
+ await asUser(ids[1]);
+ await assert.rejects(secondAction('locations',{pickup:{lat:null,lng:77},dropoff:{lat:29,lng:78}}),/valid pickup/);
+ await secondAction('locations',{pickup:{lat:28.01,lng:77,address:'Main gate'},dropoff:{lat:29,lng:78},landmark:'Opposite pharmacy'});
+ await asUser(ids[0]);await secondAction('delay',{minutes:10});await secondAction('start');
+ await asUser(ids[1]);await assert.rejects(db.query('select public.cancel_simulated_booking($1)',[secondBooking]),/Cancellation closes/);
+ await asUser(ids[0]);await assert.rejects(secondAction('nearby'),/Fresh GPS/);
+ await db.query(`insert into public.live_locations(ride_id,driver_id,location,updated_at) values($1,$2,'{"lat":28.01,"lng":77}',now())`,[secondTrip,ids[0]]);
+ await secondAction('nearby');await secondAction('nearby');
+ await db.exec('reset role');assert.equal((await db.query(`select count(*)::int as count from public.journey_push_outbox where ride_id=$1 and title='Your driver is nearby'`,[secondTrip])).rows[0].count,1);
+ await asUser(ids[1]);assert.equal((await db.query('select * from public.live_locations where ride_id=$1',[secondTrip])).rows.length,1);
+ await asUser(ids[0]);await secondAction('arrive');
+ for(let i=0;i<5;i++)assert.match((await secondAction('board',{pin:'bad'})).rows[0].result.error,/Incorrect/);
+ await assert.rejects(secondAction('board',{pin:'bad'}),/Too many PIN/);
+ await db.exec('reset role');await db.query(`update public.passenger_journeys set arrived_at=now()-interval '6 minutes' where booking_id=$1`,[secondBooking]);
+ await asUser(ids[0]);await secondAction('no_show');await secondAction('finish');
+ await asUser(ids[1]);assert.equal((await db.query('select * from public.live_locations where ride_id=$1',[secondTrip])).rows.length,0);
+ assert.equal((await db.query('select public.journey_snapshot($1) as data',[secondTrip])).rows[0].data.passengers[0].status,'no_show');
+ assert.equal((await db.query('select status from public.bookings where id=$1',[secondBooking])).rows[0].status,'confirmed');
+ await assert.rejects(db.query('select * from public.push_subscriptions'),/permission denied/);
+ await assert.rejects(db.query('select * from public.journey_push_outbox'),/permission denied/);
+ await assert.rejects(db.query('select public.claim_journey_push(null)'),/permission denied/);
+ await db.exec('reset role');
+ // Function APIs in public remain invokers; privileged state machines live in private.
+ assert.equal((await db.query(`select count(*)::int as count from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname in ('journey_snapshot','journey_action','claim_journey_push','cancel_unpaid_booking') and p.prosecdef`)).rows[0].count,0);
+ }finally{await db.close();}
+});
