@@ -268,7 +268,7 @@ export default function CreateRide() {
                   {[...Array(7)].map((_, i) => {
                     const d = new Date();
                     d.setDate(d.getDate() + i);
-                    const dateStr = d.toISOString().split("T")[0];
+                    const dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
                     const sel = date === dateStr;
                     return (
                       <button

@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import { useNotificationStore } from './useStore';
 import type { Notification, Message } from '../types';
 import toast from 'react-hot-toast';
+import { realtimeTopic } from '../lib/realtime-topic';
 
 export function useRealtimeNotifications(userId: string | undefined) {
   const { addNotification } = useNotificationStore();
@@ -18,7 +19,7 @@ export function useRealtimeNotifications(userId: string | undefined) {
     document.addEventListener('visibilitychange',onVisible);
 
     const channel = supabase
-      .channel(`user:${userId}:notifications`)
+      .channel(realtimeTopic(`user:${userId}:notifications`))
       .on(
         'postgres_changes',
         {
@@ -43,33 +44,37 @@ export function useRealtimeNotifications(userId: string | undefined) {
 }
 
 export function useRealtimeLocation(rideId: string) {
-  const [location, setLocation] = useState<{lat:number;lng:number;speed:number;updatedAt:string}|null>(null);
+  const [location, setLocation] = useState<{rideId:string;lat:number;lng:number;speed:number;updatedAt:string}|null>(null);
   useEffect(() => {
     let cancelled=false;
     setLocation(null);
     if(!rideId)return;
     const receive=(row:any)=>{
-      if(cancelled || !row?.location || !Number.isFinite(row.location.lat) || !Number.isFinite(row.location.lng))return;
-      const next={lat:row.location.lat,lng:row.location.lng,speed:row.speed||0,updatedAt:row.updated_at};
+      if(cancelled)return;
+      if(!row){setLocation(null);return;}
+      if(!row.location || !Number.isFinite(row.location.lat) || !Number.isFinite(row.location.lng))return;
+      const next={rideId,lat:row.location.lat,lng:row.location.lng,speed:row.speed||0,updatedAt:row.updated_at};
       setLocation(previous=>previous && Date.parse(previous.updatedAt)>Date.parse(next.updatedAt)?previous:next);
     };
-    const refresh=async()=>{const {data,error}=await supabase.from('live_locations').select('*').eq('ride_id',rideId).maybeSingle();if(!error)receive(data);};
-    const channel=supabase.channel(`ride:${rideId}:location`).on('postgres_changes',{event:'*',schema:'public',table:'live_locations',filter:`ride_id=eq.${rideId}`},payload=>receive(payload.new)).subscribe();
+    let requests=0,applied=0;
+    const refresh=async()=>{const request=++requests;const {data,error}=await supabase.from('live_locations').select('*').eq('ride_id',rideId).maybeSingle();if(!error&&request>=applied){applied=request;receive(data);}};
+    const channel=supabase.channel(realtimeTopic(`ride:${rideId}:location`)).on('postgres_changes',{event:'*',schema:'public',table:'live_locations',filter:`ride_id=eq.${rideId}`},payload=>{applied=++requests;receive(payload.eventType==='DELETE'?null:payload.new);}).subscribe();
     void refresh();
     const timer=window.setInterval(()=>{void refresh();},5000);
     return ()=>{cancelled=true;window.clearInterval(timer);void supabase.removeChannel(channel);};
   },[rideId]);
-  return location;
+  return location?.rideId===rideId?location:null;
 }
 
 export function useRealtimeMessages(rideId: string) {
   const [lastMessage, setLastMessage] = useState<Message | null>(null);
 
   useEffect(() => {
+    setLastMessage(null);
     if (!rideId) return;
 
     const channel = supabase
-      .channel(`ride:${rideId}:messages`)
+      .channel(realtimeTopic(`ride:${rideId}:messages`))
       .on(
         'postgres_changes',
         {

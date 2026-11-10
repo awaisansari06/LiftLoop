@@ -29,20 +29,24 @@ export default function Chat() {
   const newMsg = useRealtimeMessages(rideId || "");
 
   useEffect(() => {
+    let cancelled=false;
+    setMessages([]);setSendError('');
     async function load() {
       if (!rideId) return;
       try {
-        setMessages(await getMessages(rideId));
+        const history=await getMessages(rideId);
+        if(!cancelled)setMessages(prev=>[...history,...prev.filter(message=>!history.some(item=>item.id===message.id))]);
       } catch (e) {
         console.error(e);
       }
     }
     load();
+    return()=>{cancelled=true;};
   }, [rideId]);
 
   useEffect(() => {
-    if (newMsg) setMessages((prev) => (prev.some((m) => m.id === newMsg.id) ? prev : [...prev, newMsg]));
-  }, [newMsg]);
+    if (newMsg?.ride_id===rideId) setMessages((prev) => (prev.some((m) => m.id === newMsg.id) ? prev : [...prev, newMsg]));
+  }, [newMsg,rideId]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -61,14 +65,13 @@ export default function Chat() {
         const ext = file.name.split(".").pop() || "jpg";
         const path = `chat/${rideId}/${Date.now()}.${ext}`;
         const { error } = await supabase.storage.from("attachments").upload(path, file);
-        if (!error) {
-          const { data } = supabase.storage.from("attachments").getPublicUrl(path);
-          attachmentUrl = data.publicUrl;
-        }
+        if(error)throw error;
+        const { data } = supabase.storage.from("attachments").getPublicUrl(path);
+        attachmentUrl = data.publicUrl;
         setUploading(false);
       }
       const msg = await sendMessage({ ride_id: rideId, sender_id: user.id, message: content, attachment_url: attachmentUrl });
-      setMessages((prev) => [...prev, msg]);
+      setMessages((prev) => prev.some(item=>item.id===msg.id)?prev:[...prev, msg]);
       setText("");
       setFile(null);
     } catch (e) {

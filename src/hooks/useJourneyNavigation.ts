@@ -20,7 +20,8 @@ export function useJourneyNavigation(rideId:string|undefined) {
   useEffect(()=>{const timer=setInterval(()=>setClock(Date.now()),5000);return()=>clearInterval(timer);},[]);
   useEffect(()=>{
     let cancelled=false;
-    if(!rideId||!location||!fresh||!stops.length){setRoute([]);setRouteMinutes(null);return;}
+    setRoute([]);setRouteMinutes(null);setRouteError('');
+    if(!rideId||!location||!fresh||!stops.length)return;
     void (async()=>{
       try {
         let from:GeoLocation={lat:location.lat,lng:location.lng};let elapsed=Math.max(0,(Date.parse(snapshot?.delay_until||'')-Date.now())/60000)||0;

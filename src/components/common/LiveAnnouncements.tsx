@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { getAnnouncements, type Announcement } from '../../lib/api';
 import { AnnouncementBar } from './Interactive3D';
 import { supabase } from '../../lib/supabase';
+import { realtimeTopic } from '../../lib/realtime-topic';
 
 const STORAGE_KEY = 'rm.dismissed_announcements.v1';
 
@@ -27,7 +28,7 @@ export default function LiveAnnouncements() {
 
   useEffect(() => {
     load();
-    const ch = supabase.channel('announcements')
+    const ch = supabase.channel(realtimeTopic('announcements'))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'announcements' }, load)
       .subscribe();
     return () => { supabase.removeChannel(ch); };

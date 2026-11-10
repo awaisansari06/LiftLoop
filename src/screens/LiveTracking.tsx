@@ -43,10 +43,10 @@ export default function LiveTracking() {
   const terminal=own&&['dropped_off','no_show','cancelled'].includes(own.status);
   const point=isDriver?next?.location:own?(own.status==='onboard'?own.dropoff:own.pickup):ride?.from_location;
   const position:GeoLocation|undefined=location?{lat:location.lat,lng:location.lng}:undefined;
-  const {route,routeMinutes,routeError}=gps;
+  const {route,routeMinutes,routeError}=gps.rideId===rideId?gps:{route:[],routeMinutes:null,routeError:''};
   useEffect(()=>{const timer=setInterval(()=>setClock(Date.now()),1000);return()=>clearInterval(timer);},[]);
   useEffect(()=>{
-    let cancelled=false;if(!rideId)return;
+    let cancelled=false;setRide(null);setLoading(true);setLoadError('');if(!rideId)return;
     const load=async()=>{try{const r=await getRideById(rideId);if(!cancelled){setRide(r);setLoadError(r?'':'Ride unavailable or access denied.');}}catch{if(!cancelled)setLoadError('Could not load this ride. Check your connection.');}finally{if(!cancelled)setLoading(false);}};
     void load();const timer=setInterval(()=>void load(),5000);
     return()=>{cancelled=true;clearInterval(timer);};
@@ -62,7 +62,12 @@ export default function LiveTracking() {
     }
     return result;
   },[location?.updatedAt,stopKey,tracking.live]);
-  const perform=async(action:string,id?:string,payload:Record<string,unknown>={})=>{if(await act(action,id,payload)){const updated=await getRideById(rideId!);if(updated)setRide(updated);}};
+  const perform=async(action:string,id?:string,payload:Record<string,unknown>={})=>{
+    if(await act(action,id,payload)){
+      try{const updated=await getRideById(rideId!);if(updated)setRide(updated);setLoadError('');}
+      catch{setLoadError('Your change was saved. Could not refresh the ride; retrying automatically.');}
+    }
+  };
   const sos=async()=>{
     if(!user||!rideId||sosing)return;setSosing(true);setSosMessage('');
     try {

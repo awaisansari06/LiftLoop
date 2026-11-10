@@ -163,6 +163,8 @@ export default function MapView({
           search: false,
           clickableIcons: false, // Prevents native POI popups from swallowing clicks
         });
+        // Own the instance immediately so navigating away before load releases it.
+        mapInstanceRef.current = mapInstance;
 
         const onLoad = () => {
           if (!mounted || initialized) return;
@@ -216,6 +218,7 @@ export default function MapView({
       markersRef.current = [];
       if (polylineRef.current) { try { polylineRef.current.remove?.(); } catch {} }
       if (mapInstanceRef.current) {
+        if (getMapInstance() === mapInstanceRef.current) setMapInstance(null);
         try { mapInstanceRef.current.remove?.(); } catch {}
         mapInstanceRef.current = null;
       }

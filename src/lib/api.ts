@@ -62,8 +62,8 @@ export async function getRideById(id: string): Promise<Ride | null> {
     .from('rides')
     .select('*, driver:users!driver_id(*)')
     .eq('id', id)
-    .single();
-  if (error) return null;
+    .maybeSingle();
+  if (error) throw error;
   return await resolveStoredFiles(data);
 }
 
@@ -90,7 +90,8 @@ export async function deleteRide(id: string): Promise<void> {
 
 export async function getDriverBookingRequests(driverId: string): Promise<Booking[]> {
   // Get all bookings for rides where this user is the driver
-  const { data: rides } = await supabase.from('rides').select('id').eq('driver_id', driverId);
+  const { data: rides, error: ridesError } = await supabase.from('rides').select('id').eq('driver_id', driverId);
+  if (ridesError) throw ridesError;
   if (!rides || rides.length === 0) return [];
   const rideIds = rides.map(r => r.id);
   const { data, error } = await supabase

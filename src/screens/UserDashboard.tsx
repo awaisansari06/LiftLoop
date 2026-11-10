@@ -33,6 +33,7 @@ import {
 } from "@/lib/api";
 import { updateProfile } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
+import { realtimeTopic } from "@/lib/realtime-topic";
 import type { Ride, Booking } from "@/types";
 import SOSModal from "@/components/common/SOSModal";
 import LiveMap from "@/components/landing/LiveMap";
@@ -223,10 +224,10 @@ export default function UserDashboard() {
   // Realtime: auto-refresh when bookings or notifications change
   useEffect(() => {
     if (!user) return;
-    const ch1 = supabase.channel('user-bookings')
+    const ch1 = supabase.channel(realtimeTopic('user-bookings'))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings', filter: `rider_id=eq.${user.id}` }, () => loadData())
       .subscribe();
-    const ch2 = supabase.channel('user-notifs')
+    const ch2 = supabase.channel(realtimeTopic('user-notifs'))
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications', filter: `user_id=eq.${user.id}` }, () => loadData())
       .subscribe();
     return () => { supabase.removeChannel(ch1); supabase.removeChannel(ch2); };

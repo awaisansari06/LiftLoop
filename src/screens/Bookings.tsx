@@ -29,21 +29,24 @@ export default function Bookings() {
   const [loadError,setLoadError]=useState('');
 
   useEffect(() => {
+    let cancelled=false,requests=0,applied=0;
+    setBookings([]);setLoading(true);setLoadError('');
     async function load() {
       if (!user) return;
+      const request=++requests;
       try {
-        setBookings(await getBookings(user.id));
-        setLoadError('');
+        const data=await getBookings(user.id);
+        if(!cancelled&&request>=applied){applied=request;setBookings(data);setLoadError('');}
       } catch (e) {
-        setLoadError(e instanceof Error?e.message:'Could not load bookings.');
+        if(!cancelled&&request>=applied){applied=request;setLoadError(e instanceof Error?e.message:'Could not load bookings.');}
       } finally {
-        setLoading(false);
+        if(!cancelled)setLoading(false);
       }
     }
     void load();
     const timer=setInterval(()=>void load(),5000);
-    return()=>clearInterval(timer);
-  }, [user]);
+    return()=>{cancelled=true;clearInterval(timer);};
+  }, [user?.id]);
 
   const handleCancel = async (id: string) => {
     const selected = bookings.find(b => b.id === id);

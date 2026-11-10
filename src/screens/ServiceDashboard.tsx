@@ -52,6 +52,7 @@ import { Reveal } from "@/components/ui/scroll-reveal";
 import { cn } from "@/lib/utils";
 import DataFolder from "@/components/ui/data-folder";
 import { PopButton } from "@/components/ui/pop-button";
+import { realtimeTopic } from "@/lib/realtime-topic";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
@@ -79,26 +80,35 @@ export default function ServiceDashboard() {
   const [isSOSOpen, setIsSOSOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState<[number, number][]>([]);
   const [activeMarkers, setActiveMarkers] = useState<MapMarker[]>([]);
+  const [dashboardError,setDashboardError]=useState('');
+  const [chatError,setChatError]=useState('');
+  const dashboardRequest=useRef(0);
 
   const loadDashboard = useCallback(async () => {
     if (!user) return;
+    const request=++dashboardRequest.current;
     try {
-      const [ridesData, verif, bookings] = await Promise.all([
+      const [ridesData, verif, bookings, userStats] = await Promise.all([
         getRides({ driver_id: user.id, from_date: "1970-01-01T00:00:00Z" }),
         getVerification(user.id),
         getDriverBookingRequests(user.id),
+        getUserStats(user.id),
       ]);
-      const myRides = ridesData.filter((r) => r.driver_id === user.id);
-      setRides(myRides.filter(r => r.status === "active" || r.status === "in_progress"));
-      setStats(await getUserStats(user.id));
+      if(request!==dashboardRequest.current)return;
+      const myRides = ridesData.filter((r) => r.driver_id === user.id&&(r.status==='active'||r.status==='in_progress'));
+      setRides(myRides);
+      setStats(userStats);
       setVerification(verif);
       setBookingRequests(bookings);
+      setDashboardError('');
+      if(!myRides.length){setActiveRoute([]);setActiveMarkers([]);}
 
       if (myRides.length > 0) {
-        const firstRide = myRides[0];
+        const firstRide = myRides.find(r=>r.status==='in_progress')||myRides[0];
         if (firstRide.from_location && firstRide.to_location) {
           try {
             const routeInfo = await calculateRoute(firstRide.from_location, firstRide.to_location);
+            if(request!==dashboardRequest.current)return;
             if (routeInfo.geometry) setActiveRoute(routeInfo.geometry);
             setActiveMarkers([
               { id: "start", position: [firstRide.from_location.lat, firstRide.from_location.lng], type: "pickup", popup: "Start" },
@@ -110,26 +120,30 @@ export default function ServiceDashboard() {
         }
       }
     } catch (e) {
-      console.error(e);
+      if(request===dashboardRequest.current)setDashboardError('Could not refresh your dashboard. Check your connection and retry.');
     } finally {
-      setLoading(false);
+      if(request===dashboardRequest.current)setLoading(false);
     }
   }, [user]);
 
   useEffect(() => {
-    loadDashboard();
+    void loadDashboard();
+    const timer=setInterval(()=>void loadDashboard(),15000);
+    return()=>{clearInterval(timer);dashboardRequest.current++;};
   }, [loadDashboard]);
 
   // Realtime: auto-refresh on booking requests & verification status changes
   useEffect(() => {
     if (!user) return;
-    const ch1 = supabase.channel('service-bookings')
+    const ch1 = supabase.channel(realtimeTopic('service-bookings'))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings' }, () => loadDashboard())
       .subscribe();
-    const ch2 = supabase.channel('service-verif')
+    const ch2 = supabase.channel(realtimeTopic('service-verif'))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'driver_verification', filter: `user_id=eq.${user.id}` }, () => loadDashboard())
       .subscribe();
-    return () => { supabase.removeChannel(ch1); supabase.removeChannel(ch2); };
+    const ch3=supabase.channel(realtimeTopic('service-rides'))
+      .on('postgres_changes',{event:'*',schema:'public',table:'rides',filter:`driver_id=eq.${user.id}`},()=>void loadDashboard()).subscribe();
+    return () => { supabase.removeChannel(ch1); supabase.removeChannel(ch2); supabase.removeChannel(ch3); };
   }, [user, loadDashboard]);
 
   useEffect(() => {
@@ -144,7 +158,7 @@ export default function ServiceDashboard() {
     };
     loadChat();
     const channel = supabase
-      .channel("support-service")
+      .channel(realtimeTopic("support-service"))
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "support_messages", filter: `user_id=eq.${user.id}` },
@@ -179,7 +193,7 @@ export default function ServiceDashboard() {
       await updateBooking(bookingId, { status: action });
       setBookingRequests((prev) => prev.map((b) => (b.id === bookingId ? { ...b, status: action } : b)));
     } catch (e) {
-      console.error("Booking action failed", e);
+      window.alert(e instanceof Error?e.message:'Could not update this booking. Please retry.');
     } finally {
       setProcessingBooking(null);
     }
@@ -207,9 +221,9 @@ export default function ServiceDashboard() {
   };
 
   const sendChatMessage = async () => {
-    if (!user) return;
+    if (!user || sendingChat) return;
     if (!chatMsg.trim() && !chatFile) return;
-    setSendingChat(true);
+    setSendingChat(true);setChatError('');
     try {
       let attachment_url: string | undefined;
       if (chatFile) {
@@ -218,18 +232,20 @@ export default function ServiceDashboard() {
         const { error: upErr } = await supabase.storage
           .from("attachments")
           .upload(path, chatFile, { contentType: chatFile.type });
-        if (!upErr) {
-          attachment_url = supabase.storage.from("attachments").getPublicUrl(path).data.publicUrl;
-        }
+        if(upErr)throw upErr;
+        attachment_url = supabase.storage.from("attachments").getPublicUrl(path).data.publicUrl;
       }
-      await supabase.from("support_messages").insert({
+      const {error}=await supabase.from("support_messages").insert({
         user_id: user.id,
         message: chatMsg.trim() || (chatFile ? `📎 ${chatFile.name}` : ""),
         sender_type: "user",
         attachment_url,
       });
+      if(error)throw error;
       setChatMsg("");
       setChatFile(null);
+    } catch {
+      setChatError('Message could not be sent. Your message is still here; please retry.');
     } finally {
       setSendingChat(false);
     }
@@ -303,6 +319,7 @@ export default function ServiceDashboard() {
   return (
     <PageShell>
       <Container size="full">
+        {dashboardError&&<p role="alert" className="mb-3 text-sm text-danger">{dashboardError} <button className="underline" onClick={()=>void loadDashboard()}>Retry</button></p>}
         {/* hero */}
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy to-navy-light p-7 text-white sm:p-9">
@@ -671,6 +688,7 @@ export default function ServiceDashboard() {
                 </button>
               </div>
             )}
+            {chatError&&<p role="alert" className="px-3 text-sm text-danger">{chatError}</p>}
             <div className="flex items-center gap-2 border-t border-border p-3">
               <input
                 ref={chatFileInputRef}
